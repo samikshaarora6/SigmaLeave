@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Admin">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email Address"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+            android:textSize="24sp"
+            android:id="@+id/em"
+            android:gravity="center"
+            android:visibility="visible"
+            app:fontFamily="sans-serif-light" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:id="@+id/p"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:visibility="visible"
+            app:fontFamily="sans-serif-light" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:id="@+id/Login"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+</LinearLayout>

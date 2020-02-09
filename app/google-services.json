@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "939180989219",
+    "firebase_url": "https://leave-management-52488.firebaseio.com",
+    "project_id": "leave-management-52488",
+    "storage_bucket": "leave-management-52488.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:939180989219:android:2a8102c2762277a2bf8a96",
+        "android_client_info": {
+          "package_name": "com.example.sigmaleave"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "939180989219-3bme12fr1q18hjj43n7o2vr572k8pnq9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sigmaleave",
+            "certificate_hash": "16e2d98dc1d4820abeab2e9fd33a21ab599fcf87"
+          }
+        },
+        {
+          "client_id": "939180989219-qco5sesr4v1kaf7jb0muppgo5gbf9qg4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sigmaleave",
+            "certificate_hash": "4c57155a74ab0c8c32a392aa70e272950688f0bf"
+          }
+        },
+        {
+          "client_id": "939180989219-prigko6al5knl1b9cj9jndn69s15hbc3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBphW0l5s3xgQhlM0Mw1PM2LDzVz_CI6bc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "939180989219-prigko6al5knl1b9cj9jndn69s15hbc3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
