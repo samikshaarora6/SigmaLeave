@@ -3,13 +3,11 @@ package com.example.sigmaleave;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,9 +21,8 @@ public class EmployeeLogin extends AppCompatActivity {
     private Button btnLogin;
     private EditText inputEmail, inputPassword;
     private FirebaseAuth mAuth;
-    FirebaseDatabase database;
-    DatabaseReference databaseReference;
-    String email, password;
+    private FirebaseDatabase database;
+    private DatabaseReference databaseReference;
     Employee employee;
 
     @Override
@@ -66,8 +63,12 @@ public class EmployeeLogin extends AppCompatActivity {
                             String password = ds.child("password").getValue(String.class);
                             if (email.equals(Email)&&password.equals(Password)){
                                 Toast.makeText(EmployeeLogin.this, "Login Success", Toast.LENGTH_SHORT).show();
-                                Intent it=new Intent(EmployeeLogin.this,ApplyForLeave.class);
+                                Intent it=new Intent(EmployeeLogin.this, EmployeeDashboard.class);
                                 startActivity(it);
+
+                            }
+                            else{
+                                Toast.makeText(EmployeeLogin.this, "Check Credentials.", Toast.LENGTH_SHORT).show();
 
                             }
 

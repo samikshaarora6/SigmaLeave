@@ -2,9 +2,10 @@ package com.example.sigmaleave;
 
 public class Employee {
     String name;
-    String designation;
     String email;
     String password;
+
+
 
     public String getPassword() {
         return password;
@@ -19,9 +20,9 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(String name, String designation, String email,String password) {
+    public Employee(String name, String email,String password) {
         this.name = name;
-        this.designation = designation;
+        //this.designation = designation;
         this.email = email;
         this.password = password;
     }
@@ -34,13 +35,13 @@ public class Employee {
         this.name = name;
     }
 
-    public String getDesignation() {
-        return designation;
-    }
-
-    public void setDesignation(String designation) {
-        this.designation = designation;
-    }
+    //public String getDesignation() {
+       /// return designation;
+    //}
+//
+//    public void setDesignation(String designation) {
+//        this.designation = designation;
+//    }
 
     public String getEmail() {
         return email;

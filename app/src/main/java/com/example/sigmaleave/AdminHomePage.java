@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class AdminHomePage extends AppCompatActivity {
-    CardView c1;
+    private CardView c1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -12,12 +12,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Add extends AppCompatActivity {
-    EditText name,password,email;
-    Button button;
+    private EditText name,password,email;
+    private Button button;
     private Employee employee;
     private FirebaseAuth mAuth;
-    FirebaseDatabase database;
-    DatabaseReference databaseReference;
+    private FirebaseDatabase database;
+    private DatabaseReference databaseReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

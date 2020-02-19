@@ -25,9 +25,9 @@ public class Admin extends AppCompatActivity {
     private Button btnLogin;
     private EditText inputEmail,inputPassword;
     private FirebaseAuth mAuth;
-    FirebaseDatabase database;
-    DatabaseReference databaseReference;
-    String email,password;
+    private FirebaseDatabase database;
+    private DatabaseReference databaseReference;
+    private String email,password;
 
 
     @Override

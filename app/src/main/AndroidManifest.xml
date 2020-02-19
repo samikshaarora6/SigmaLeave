@@ -9,12 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ApplyForLeave"></activity>
+        <activity android:name=".ManagerDashboard"></activity>
+        <activity android:name=".ApplyForLeave" />
+        <activity android:name=".UpdateProfile" />
         <activity android:name=".EmployeeDashboard" />
         <activity android:name=".AdminHomePage" />
         <activity android:name=".Admin" />
         <activity android:name=".Add" />
         <activity android:name=".EmployeeLogin" />
+        <activity android:name=".RecyclerViewLeaves"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
