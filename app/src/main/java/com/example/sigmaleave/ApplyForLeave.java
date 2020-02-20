@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public abstract class ApplyForLeave extends AppCompatActivity implements
         AdapterView.OnItemSelectedListener {
@@ -63,7 +64,6 @@ public abstract class ApplyForLeave extends AppCompatActivity implements
 
         ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,typeLeaves);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //Setting the ArrayAdapter data on the Spinner
         spin.setAdapter(aa);
 
         final Leaves leaves=new Leaves();
@@ -83,10 +83,7 @@ public abstract class ApplyForLeave extends AppCompatActivity implements
                         leaves.setStartDate(starDateEditText.getText().toString());
                         leaves.setEndDate(endDateEditText.getText().toString());
                         leaves.setReason(reasonEditText.getText().toString());
-
-                        databaseReference.child("Leaves").setValue(15);
-                        databaseReference.child("Leaves").setValue(30);
-
+                        calculateLeaves();
                     }
                 });
             }
@@ -98,6 +95,10 @@ public abstract class ApplyForLeave extends AppCompatActivity implements
     }
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {
-        // TODO Auto-generated method stub
+    }
+    private void calculateLeaves()
+    {
+
+
     }
 }
