@@ -13,26 +13,27 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 public class LeavesAdapter extends RecyclerView.Adapter<LeavesAdapter.ContactViewHolder> {
 
     private ArrayList<Leaves> contactList;
     private Context mContext;
-    private FirebaseAuth firebaseAuth;
-    private DatabaseReference databaseReference;
-    private FirebaseDatabase database;
+    OnItemClickListener onItemClickListener;
 
 
-    public LeavesAdapter(ArrayList<Leaves> contactList, Context mContext) {
+    public LeavesAdapter(ArrayList<Leaves> contactList, Context mContext, OnItemClickListener onItemClickListener) {
         this.contactList = contactList;
         this.mContext = mContext;
+        this.onItemClickListener = onItemClickListener;
     }
 
     @NonNull
@@ -46,20 +47,19 @@ public class LeavesAdapter extends RecyclerView.Adapter<LeavesAdapter.ContactVie
     @Override
     public void onBindViewHolder(ContactViewHolder contactViewHolder, final int position) {
         contactViewHolder.details.setText(contactList.get(position).getStartDate());
-       // contactViewHolder.details.setText(contactList.get(position).getEndDate());
+        contactViewHolder.yess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickListener.onItemClick(contactList.get(position).getEmpId(), position, true);
+            }
+        });
+        contactViewHolder.No.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickListener.onItemClick(contactList.get(position).getEmpId(), position, false);
+            }
+        });
 
-//        contactViewHolder.yess.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                openforYes();
-//            }
-//        });
-//        contactViewHolder.  No.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                openforNo();
-//            }
-//        });
 
     }
 
@@ -80,35 +80,7 @@ public class LeavesAdapter extends RecyclerView.Adapter<LeavesAdapter.ContactVie
         }
     }
 
-//    private void openforNo() {
-//        database = FirebaseDatabase.getInstance();
-//        databaseReference = database.getReference();
-//        //example bta rha hu
-//
-//        databaseReference.child("Leave Approved").child("leaves").child("employeeid").child("leaveapproved").setValue(trueorfalse);
-//    }
-//
-//    private void openforYes(boolean value) {
-//        database = FirebaseDatabase.getInstance();
-//        databaseReference = database.getReference().child("Leave Requests");
-//        databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-//                    //String key = dataSnapshot1.getKey();
-//                    if (dataSnapshot1.hasChild("Leave Approved")) {
-//                            databaseReference.child("Leave Requests").child("Leaves").child("Leave Approved").setValue(true);
-//                        }
-//
-//                    }
-//
-//                }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-    }
+}
 
 
 

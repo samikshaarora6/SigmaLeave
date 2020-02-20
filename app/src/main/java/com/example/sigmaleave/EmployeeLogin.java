@@ -1,6 +1,8 @@
 package com.example.sigmaleave;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -24,11 +26,15 @@ public class EmployeeLogin extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
     Employee employee;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.employeelogin);
+        sharedPreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         inputEmail = findViewById(R.id.em);
         inputPassword = findViewById(R.id.p);
         btnLogin = findViewById(R.id.Login);
@@ -61,13 +67,15 @@ public class EmployeeLogin extends AppCompatActivity {
                         for (DataSnapshot ds : dataSnapshot.getChildren()) {
                             String email = ds.child("email").getValue(String.class);
                             String password = ds.child("password").getValue(String.class);
-                            if (email.equals(Email)&&password.equals(Password)){
+
+                            if (email.equals(Email) && password.equals(Password)) {
+                                editor.putInt(Constant.Current_EMP_ID, ds.child("e_ID").getValue(Integer.class));
+                                editor.apply();
                                 Toast.makeText(EmployeeLogin.this, "Login Success", Toast.LENGTH_SHORT).show();
-                                Intent it=new Intent(EmployeeLogin.this, EmployeeDashboard.class);
+                                Intent it = new Intent(EmployeeLogin.this, EmployeeDashboard.class);
                                 startActivity(it);
 
-                            }
-                            else{
+                            } else {
                                 Toast.makeText(EmployeeLogin.this, "Check Credentials.", Toast.LENGTH_SHORT).show();
 
                             }
