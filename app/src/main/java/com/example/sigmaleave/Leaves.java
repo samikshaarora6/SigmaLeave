@@ -15,14 +15,14 @@ public class Leaves  {
         this.endDate = endDate;
     }
 
-    String status;
-    String empId;
+    boolean status;
+    int empId;
 
-    public String getEmpId() {
+    public int getEmpId() {
         return empId;
     }
 
-    public void setEmpId(String empId) {
+    public void setEmpId(int empId) {
         this.empId = empId;
     }
 
@@ -34,11 +34,11 @@ public class Leaves  {
         this.leaveId = leaveId;
     }
 
-    public String getStatus() {
+    public boolean isStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
