@@ -1,5 +1,7 @@
 package com.example.sigmaleave;
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -31,6 +33,8 @@ public class UpdateProfile extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,7 @@ public class UpdateProfile extends AppCompatActivity {
         np = findViewById(R.id.Npassword);
         cmail=findViewById(R.id.cemail);
         submit = findViewById(R.id.submit);
+        sharedPreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
 
@@ -89,6 +94,8 @@ public class UpdateProfile extends AppCompatActivity {
                             String email = ds.child("email").getValue(String.class);
                             String password = ds.child("password").getValue(String.class);
                             if (email.equals(cEmail) && password.equals(Cpassword)) {
+                                editor.putInt(Constant.Current_EMP_ID, ds.child("e_ID").getValue(Integer.class));
+                                editor.apply();
 
                                 usersdRef.child(ds.getKey()).child("email").setValue(Email);
                                 usersdRef.child(ds.getKey()).child("password").setValue(Npassword);

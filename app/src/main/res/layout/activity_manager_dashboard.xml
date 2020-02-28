@@ -4,6 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ManagerDashboard">
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:background="@drawable/back"
+    android:orientation="vertical"
+    tools:context=".EmployeeDashboard">
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="APPLY LEAVE"
+        android:layout_marginTop="20dp"
+        android:id="@+id/apply"/>
+    <Button
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="PROFILE"
+        android:id="@+id/PROF"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:text="Approve Leaves"
+        android:id="@+id/vieww"/>
 
 </LinearLayout>

@@ -1,29 +1,23 @@
 package com.example.sigmaleave;
 
-public class Leaves  {
+public class Leaves {
 
-    String reason;
-    String leaveId;
-    String startDate;
-    String endDate;
-
-    public Leaves() {
+    public String getReason() {
+        return reason;
     }
 
-    public Leaves(String startDate, String endDate) {
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public Leaves(String reason, String leaveId, String startDate, String endDate, boolean status, int empId, String leaveType) {
+        this.reason = reason;
+        this.leaveId = leaveId;
         this.startDate = startDate;
         this.endDate = endDate;
-    }
-
-    boolean status;
-    int empId;
-
-    public int getEmpId() {
-        return empId;
-    }
-
-    public void setEmpId(int empId) {
+        this.status = status;
         this.empId = empId;
+        LeaveType = leaveType;
     }
 
     public String getLeaveId() {
@@ -32,14 +26,6 @@ public class Leaves  {
 
     public void setLeaveId(String leaveId) {
         this.leaveId = leaveId;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
     }
 
     public String getStartDate() {
@@ -58,11 +44,38 @@ public class Leaves  {
         this.endDate = endDate;
     }
 
-    public String getReason() {
-        return reason;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setReason(String reason) {
-        this.reason = reason;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
+
+    public int getEmpId() {
+        return empId;
+    }
+
+    public void setEmpId(int empId) {
+        this.empId = empId;
+    }
+
+    public Leaves() {
+    }
+
+    public String getLeaveType() {
+        return LeaveType;
+    }
+
+    public void setLeaveType(String leaveType) {
+        LeaveType = leaveType;
+    }
+
+    String reason;
+    String leaveId;
+    String startDate;
+    String endDate;
+    boolean status;
+    int empId;
+    String LeaveType;
 }

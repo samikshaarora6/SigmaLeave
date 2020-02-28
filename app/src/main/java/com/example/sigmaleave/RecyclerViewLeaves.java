@@ -50,11 +50,13 @@ public class RecyclerViewLeaves extends AppCompatActivity implements OnItemClick
         dialog.setCancelable(false);
         dialog.show();
         LeavesArrayList = new ArrayList<Leaves>();
-        getEmployeeDetails();
+
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        getEmployeeDetails();
         adapter = new LeavesAdapter(LeavesArrayList, RecyclerViewLeaves.this, this);
         recyclerView.setHasFixedSize(true);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
@@ -136,5 +138,3 @@ public class RecyclerViewLeaves extends AppCompatActivity implements OnItemClick
 
     }
 }
-
-

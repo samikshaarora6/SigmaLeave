@@ -1,42 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@drawable/back"
     android:layout_height="match_parent">
-    <LinearLayout
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical">
-        <EditText
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Name"
-            android:gravity="center"
-            android:id="@+id/Addname"
-            android:textSize="20dp"/>
+           android:layout_marginTop="250dp"
+            android:orientation="vertical">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter Email"
-            android:id="@+id/Addemail"
-            android:gravity="center"
-            android:textSize="20dp"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter Password"
-            android:id="@+id/Addpass"
-            android:gravity="center"
-            android:textSize="20dp"/>
-        <Button
-            android:layout_width="match_parent"
-            android:id="@+id/Added"
-            android:layout_marginTop="60dp"
-            android:layout_height="wrap_content"
-            android:text="Add Employee"/>
-
-
-    </LinearLayout>
+            <EditText
+                android:id="@+id/Addname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="Enter Name"
+                android:textSize="20dp" />
+            <EditText
+                android:id="@+id/Addemail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:hint="Enter Email"
+                android:textSize="20dp" />
+            <EditText
+                android:id="@+id/AddMaritial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:hint="Enter Maritial Status"
+                android:textSize="20dp" />
+            <EditText
+                android:id="@+id/AddEid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:hint="Enter Employee ID"
+                android:inputType="number"
+                android:textSize="20dp" />
+            <EditText
+                android:id="@+id/AddMobileNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:hint="Enter Mobile Number"
+                android:maxLength="10"
+                android:inputType="number"
+                android:textSize="20dp" />
+            <EditText
+                android:id="@+id/AddDOB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:hint="Enter DOB"
+                android:maxLength="10"
+                android:inputType="number"
+                android:textSize="20dp" />
+            <EditText
+                android:id="@+id/AddManager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:hint="Enter Manager Name"
+                android:textSize="20dp" />
+            <EditText
+                android:id="@+id/AddBloodGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:hint="Enter Blood Group"
+                android:textSize="20dp" />
+            <EditText
+                android:id="@+id/Addpass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:inputType="textVisiblePassword"
+                android:hint="Enter Password"
+                android:textSize="20dp" />
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <RadioButton
+                    android:id="@+id/radioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:checked="false"
+                    android:text="Employee"
+                    android:textSize="20dp" />
+                <RadioButton
+                    android:id="@+id/radioButton1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:checked="false"
+                    android:text="Manager"
+                    android:textSize="20dp" />
+            </RadioGroup>
+            <Button
+                android:id="@+id/Added"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/round"
+                android:text="Add Employee" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

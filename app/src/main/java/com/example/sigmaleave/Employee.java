@@ -7,6 +7,66 @@ public class Employee {
     int no_of_leaves;
     int no_of_chunks;
     int E_ID;
+    String DOB;
+    String Maritial_Status;
+    String MobileNumber;
+    String ManagerName;
+
+    public String getBloodGroup() {
+        return BloodGroup;
+    }
+
+    public void setBloodGroup(String bloodGroup) {
+        BloodGroup = bloodGroup;
+    }
+
+    String BloodGroup;
+
+    public Employee(String name, String email, String password,
+                    String DOB, String maritial_Status, String mobileNumber, String managerName, String bloodGroup) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.DOB = DOB;
+        Maritial_Status = maritial_Status;
+        MobileNumber = mobileNumber;
+        ManagerName = managerName;
+        BloodGroup=bloodGroup;
+
+    }
+
+    public String getDOB() {
+        return DOB;
+    }
+
+    public void setDOB(String DOB) {
+        this.DOB = DOB;
+    }
+
+    public String getMaritial_Status() {
+        return Maritial_Status;
+    }
+
+    public void setMaritial_Status(String maritial_Status) {
+        Maritial_Status = maritial_Status;
+    }
+
+    public String getMobileNumber() {
+        return MobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        MobileNumber = mobileNumber;
+    }
+
+    public String getManagerName() {
+        return ManagerName;
+    }
+
+    public void setManagerName(String managerName) {
+        ManagerName = managerName;
+    }
+
 
     public int getE_ID() {
         return E_ID;
@@ -44,13 +104,6 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(String name, String email, String password) {
-        this.name = name;
-        //this.designation = designation;
-        this.email = email;
-        this.password = password;
-    }
-
     public String getName() {
         return name;
     }
@@ -58,15 +111,6 @@ public class Employee {
     public void setName(String name) {
         this.name = name;
     }
-
-    //public String getDesignation() {
-    /// return designation;
-    //}
-//
-//    public void setDesignation(String designation) {
-//        this.designation = designation;
-//    }
-
     public String getEmail() {
         return email;
     }
