@@ -10,13 +10,33 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class AdminHomePage extends AppCompatActivity {
-    private CardView c1;
+    private CardView c1,c2,c3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_home_page);
         c1=findViewById(R.id.addEmployee);
+        c2=findViewById(R.id.CheckForLeaves);
+        c3=findViewById(R.id.CheckEmps);
+        c3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(AdminHomePage.this,RecyclerViewEmployees.class);
+                startActivity(intent);
+                finish();
+
+            }
+        });
+        c2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(AdminHomePage.this,RecyclerViewLeaves.class);
+                startActivity(intent);
+                finish();
+
+            }
+        });
         c1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

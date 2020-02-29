@@ -9,16 +9,39 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ManagerDashboard"></activity>
-        <activity android:name=".ApplyForLeave" />
-        <activity android:name=".UpdateProfile" />
-        <activity android:name=".EmployeeDashboard" />
-        <activity android:name=".AdminHomePage" />
-        <activity android:name=".Admin" />
-        <activity android:name=".Add" />
-        <activity android:name=".EmployeeLogin" />
-        <activity android:name=".RecyclerViewLeaves"/>
-        <activity android:name=".MainActivity">
+        <activity android:name=".ManagerApproval"></activity>
+        <activity
+            android:name=".ManagerDashboard"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ApplyForLeave"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".UpdateProfile"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EmployeeDashboard"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AdminHomePage"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Admin"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Add"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EmployeeLogin"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RecyclerViewLeaves"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".RecyclerViewEmployees"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

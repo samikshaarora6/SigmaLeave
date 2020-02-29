@@ -2,6 +2,7 @@ package com.example.sigmaleave;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -13,6 +14,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,8 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Calendar;
 import java.util.Date;
 
-public class ApplyForLeave extends AppCompatActivity implements
-        AdapterView.OnItemSelectedListener {
+public class ApplyForLeave extends AppCompatActivity {
 
     private Button apply;
 
@@ -42,19 +44,23 @@ public class ApplyForLeave extends AppCompatActivity implements
     private EditText endDateEditText;
     private EditText reasonEditText;
     private TextView chunks, days;
+    Leaves leaves;
     Employee employee;
     private DatePickerDialog.OnDateSetListener startDate;
     private DatePickerDialog.OnDateSetListener endDate;
 
     private Button cancelButton;
     private Button applyButton;
-    String[] typeLeaves = {"Full Day", "Half Day", "Quarter Day"};
+    private RadioGroup radioGroup;
+    private RadioButton fullDay,halfDay,quarterDay;
     private static final String FIRST_EMPID = "EID";
+    private static final String LeaveId="LeaveNumber";
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     static int currentEMPID = 0;
-    static int chunk = 0;
-    static int AVleaves = 0;
+    static int chunk = 30;
+    static int AVleaves = 15;
+    static int LeaveNo=0;
 
 
     @Override
@@ -70,24 +76,20 @@ public class ApplyForLeave extends AppCompatActivity implements
         reasonEditText = (EditText) findViewById(R.id.reason);
         applyButton = (Button) findViewById(R.id.apply);
         cancelButton = (Button) findViewById(R.id.cancelButton);
-        chunks = findViewById(R.id.chunksLeft);
-        days = findViewById(R.id.leavesLeft);
+        radioGroup=findViewById(R.id.radio_1);
+        radioGroup.clearCheck();
+        fullDay=findViewById(R.id.Fullday1);
+        halfDay=findViewById(R.id.Halfday1);
+        quarterDay=findViewById(R.id.quarter);
 
-
-        Spinner spin = (Spinner) findViewById(R.id.spinner);
-        spin.setOnItemSelectedListener(this);
-
-        ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, typeLeaves);
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spin.setAdapter(aa);
-
-        final Leaves leaves = new Leaves();
+        leaves = new Leaves();
         employee = new Employee();
 
         database = FirebaseDatabase.getInstance();
-        if (sharedPreferences.getInt(Constant.Current_EMP_ID, -1) >= 0) {
+        if ((sharedPreferences.getInt(Constant.Current_EMP_ID, -1) >= 0) && sharedPreferences.getInt(Constant.Leave_Nuumber, -1) >= 0) {
             currentEMPID = sharedPreferences.getInt(Constant.Current_EMP_ID, 0);
-            database.getReference().child("Employee Details").child(FIRST_EMPID + currentEMPID).addValueEventListener(new ValueEventListener() {
+            LeaveNo = sharedPreferences.getInt(Constant.Leave_Nuumber,0);
+            database.getReference().child("Employee Details").child(FIRST_EMPID + currentEMPID).child(LeaveId+LeaveNo).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.hasChild("no_of_chunks")) {
@@ -97,8 +99,8 @@ public class ApplyForLeave extends AppCompatActivity implements
                         employee.setName(dataSnapshot.child("name").getValue(String.class));
                         employee.setNo_of_chunks(dataSnapshot.child("no_of_chunks").getValue(Integer.class));
                         employee.setNo_of_leaves(dataSnapshot.child("no_of_leaves").getValue(Integer.class));
-                        chunks.setText("Chunk Available" + dataSnapshot.child("no_of_chunks").getValue());
-                        days.setText("Days Available" + dataSnapshot.child("no_of_leaves").getValue());
+//                        chunks.setText("Chunk Available" + dataSnapshot.child("no_of_chunks").getValue());
+//                        days.setText("Days Available" + dataSnapshot.child("no_of_leaves").getValue());
                     }
                 }
 
@@ -123,35 +125,37 @@ public class ApplyForLeave extends AppCompatActivity implements
                 leaves.setStatus(false);
                 leaves.setEmpId(currentEMPID);
                 leaves.setLeaveId(starDateEditText.getText().toString() + "" + endDateEditText.getText().toString() + "" + currentEMPID);
-                databaseReference.child(FIRST_EMPID + currentEMPID).setValue(leaves).addOnSuccessListener(new OnSuccessListener<Void>() {
+                databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId+LeaveNo).setValue(leaves).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        databaseReference.child(FIRST_EMPID + currentEMPID).child("email").setValue(employee.getEmail());
-                        databaseReference.child(FIRST_EMPID + currentEMPID).child("no_of_chunks").setValue(employee.getNo_of_chunks());
-                        databaseReference.child(FIRST_EMPID + currentEMPID).child("no_of_leaves").setValue(employee.getNo_of_leaves());
-                        databaseReference.child(FIRST_EMPID + currentEMPID).child("EID").setValue(currentEMPID);
-                        databaseReference.child(FIRST_EMPID + currentEMPID).child("name").setValue(employee.getName());
-
-
+                        LeaveNo++;
+                        databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId+LeaveNo).child("email").setValue(employee.getEmail());
+                        databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId+LeaveNo).child("no_of_chunks").setValue(employee.getNo_of_chunks());
+                        databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId+LeaveNo).child("no_of_leaves").setValue(employee.getNo_of_leaves());
+                        databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId+LeaveNo).child("EID").setValue(currentEMPID);
+                        databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId+LeaveNo).child("name").setValue(employee.getName());
+                        radioFunctions();
+                        databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId+LeaveNo).child("Leave Type").setValue(leaves.getLeaveType());
                     }
                 });
-
-
             }
         });
     }
+    private void radioFunctions(){
+        switch (radioGroup.getCheckedRadioButtonId()) {
+            case R.id.Fullday1:
+                leaves.setLeaveType(fullDay.getText().toString().trim());
+                chunk=chunk- 1;
+                AVleaves=AVleaves-1;
 
-    @Override
-    public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
-        Toast.makeText(getApplicationContext(), typeLeaves[position], Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> arg0) {
-    }
-
-    private void calculateLeaves() {
-
-
+            case R.id.Halfday1:
+                 leaves.setLeaveType(halfDay.getText().toString().trim());
+                    chunk=chunk- 1;
+                    AVleaves= (int) (AVleaves-0.5);
+            case R.id.quarter:
+                leaves.setLeaveType(quarterDay.getText().toString().trim());
+                chunk=chunk- 1;
+                AVleaves= (int) (AVleaves-0.25);
+        }
     }
 }

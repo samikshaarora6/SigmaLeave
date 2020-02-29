@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,6 +30,7 @@ public class EmployeeLogin extends AppCompatActivity {
     Employee employee;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    CheckBox mgr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,7 @@ public class EmployeeLogin extends AppCompatActivity {
         inputEmail = findViewById(R.id.em);
         inputPassword = findViewById(R.id.p);
         btnLogin = findViewById(R.id.Login);
+        mgr=findViewById(R.id.checkBox);
         employee = new Employee();
 
         mAuth = FirebaseAuth.getInstance();
@@ -49,7 +53,6 @@ public class EmployeeLogin extends AppCompatActivity {
             public void onClick(View v) {
                 final String Email = inputEmail.getText().toString();
                 final String Password = inputPassword.getText().toString();
-
                 if (TextUtils.isEmpty((Email))) {
                     Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
                     return;
@@ -59,36 +62,61 @@ public class EmployeeLogin extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                databaseReference = database.getReference();
-                DatabaseReference usersdRef = databaseReference.child("Employee Details");
-                ValueEventListener eventListener = new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                            String email = ds.child("email").getValue(String.class);
-                            String password = ds.child("password").getValue(String.class);
+                if (mgr.isChecked()) {
+                    DatabaseReference managerRef=databaseReference.child("Employee Details").child("Managers");
 
-                            if (email.equals(Email) && password.equals(Password)) {
-                                editor.putInt(Constant.Current_EMP_ID, ds.child("e_ID").getValue(Integer.class));
-                                editor.apply();
-                                Toast.makeText(EmployeeLogin.this, "Login Success", Toast.LENGTH_SHORT).show();
-                                Intent it = new Intent(EmployeeLogin.this, EmployeeDashboard.class);
-                                startActivity(it);
+                    ValueEventListener event = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                String email = ds.child("email").getValue(String.class);
+                                String password = ds.child("password").getValue(String.class);
+                                if (email.equals(Email) && password.equals(Password)) {
+                                    editor.putInt(Constant.Current_M_ID, ds.child("m_ID").getValue(Integer.class));
+                                    editor.apply();
+                                    Intent it = new Intent(EmployeeLogin.this, ManagerDashboard.class);
+                                    startActivity(it);
+                                    Toast.makeText(EmployeeLogin.this, "Welcome Manager!", Toast.LENGTH_SHORT).show();
 
-                            } else {
-                                Toast.makeText(EmployeeLogin.this, "Check Credentials.", Toast.LENGTH_SHORT).show();
-
+                                } else {
+                                    Toast.makeText(EmployeeLogin.this, "Check Credentials.", Toast.LENGTH_SHORT).show();
+                                }
                             }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
                         }
-                    }
+                    };
+                    managerRef.addListenerForSingleValueEvent(event);
+                }
+                else {
+                    DatabaseReference usersdRef = databaseReference.child("Employee Details").child("Employees");
+                    ValueEventListener eventListener = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                String email = ds.child("email").getValue(String.class);
+                                String password = ds.child("password").getValue(String.class);
+                                if (email.equals(Email) && password.equals(Password)) {
+                                    editor.putInt(Constant.Current_EMP_ID, ds.child("e_ID").getValue(Integer.class));
+                                    editor.apply();
+                                    Toast.makeText(EmployeeLogin.this, "Welcome ! ", Toast.LENGTH_SHORT).show();
+                                    Intent it = new Intent(EmployeeLogin.this, EmployeeDashboard.class);
+                                    startActivity(it);
+                                } else {
+                                    Toast.makeText(EmployeeLogin.this, "Check Credentials.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                };
-                usersdRef.addListenerForSingleValueEvent(eventListener);
-
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    };
+                    usersdRef.addListenerForSingleValueEvent(eventListener);
+                }
 
             }
         });

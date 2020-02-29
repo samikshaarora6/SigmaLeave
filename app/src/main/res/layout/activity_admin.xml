@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/back"
     tools:context=".Admin">
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,6 +37,8 @@
             android:layout_height="wrap_content"
             android:text="Login"
             android:id="@+id/Login"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/round"
             android:gravity="center"/>
 
     </LinearLayout>
