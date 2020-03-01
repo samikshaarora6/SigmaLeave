@@ -22,7 +22,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class RecyclerViewLeaves extends AppCompatActivity implements OnItemClickListener {
     private static final String TAG = "RecyclerViewLeaves";
@@ -113,8 +118,9 @@ public class RecyclerViewLeaves extends AppCompatActivity implements OnItemClick
             String endDate = LeavesArrayList.get(position).getEndDate();
             //TODO Please Calculate Difference between two dates , acc. to that subtract chunks and leaves as like below code
             int days = 2;
+            getCountOfDays(startDate,endDate);
             getEmployeeDetails();
-            if (employeeArrayList.get(position).getNo_of_leaves()-1 >= days && employeeArrayList.get(position).getNo_of_chunks() != 0) {
+            if (employeeArrayList.get(position).getNo_of_leaves() - 1 >= days && employeeArrayList.get(position).getNo_of_chunks() != 0) {
                 int currentChunks = employeeArrayList.get(position).getNo_of_chunks();
                 int currentDays = employeeArrayList.get(position).getNo_of_leaves();
                 /////
@@ -135,10 +141,61 @@ public class RecyclerViewLeaves extends AppCompatActivity implements OnItemClick
                     }
                 });
             }
-        }
-        else{
+        } else {
             Toast.makeText(RecyclerViewLeaves.this, "Rejected", Toast.LENGTH_SHORT).show();
         }
-
     }
-}
+        public String getCountOfDays(String createdDateString, String expireDateString) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+            Date createdConvertedDate = null, expireCovertedDate = null, todayWithZeroTime = null;
+            try {
+                createdConvertedDate = dateFormat.parse(createdDateString);
+                expireCovertedDate = dateFormat.parse(expireDateString);
+
+                Date today = new Date();
+
+                todayWithZeroTime = dateFormat.parse(dateFormat.format(today));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            int cYear = 0, cMonth = 0, cDay = 0;
+
+            if (createdConvertedDate.after(todayWithZeroTime)) {
+                Calendar cCal = Calendar.getInstance();
+                cCal.setTime(createdConvertedDate);
+                cYear = cCal.get(Calendar.YEAR);
+                cMonth = cCal.get(Calendar.MONTH);
+                cDay = cCal.get(Calendar.DAY_OF_MONTH);
+
+            } else {
+                Calendar cCal = Calendar.getInstance();
+                cCal.setTime(todayWithZeroTime);
+                cYear = cCal.get(Calendar.YEAR);
+                cMonth = cCal.get(Calendar.MONTH);
+                cDay = cCal.get(Calendar.DAY_OF_MONTH);
+            }
+
+            Calendar eCal = Calendar.getInstance();
+            eCal.setTime(expireCovertedDate);
+
+            int eYear = eCal.get(Calendar.YEAR);
+            int eMonth = eCal.get(Calendar.MONTH);
+            int eDay = eCal.get(Calendar.DAY_OF_MONTH);
+
+            Calendar date1 = Calendar.getInstance();
+            Calendar date2 = Calendar.getInstance();
+
+            date1.clear();
+            date1.set(cYear, cMonth, cDay);
+            date2.clear();
+            date2.set(eYear, eMonth, eDay);
+
+            long diff = date2.getTimeInMillis() - date1.getTimeInMillis();
+
+            float dayCount = (float) diff / (24 * 60 * 60 * 1000);
+
+            return ("" + (int) dayCount + " Days");
+        }
+    }
