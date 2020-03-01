@@ -14,7 +14,7 @@ public class ManagerDashboard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_employee_dashboard);
+        setContentView(R.layout.activity_manager_dashboard);
         btn=findViewById(R.id.PROF);
         btn2=findViewById(R.id.apply);
         btn2.setOnClickListener(new View.OnClickListener() {

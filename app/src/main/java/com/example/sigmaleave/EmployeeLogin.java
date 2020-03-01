@@ -69,9 +69,9 @@ public class EmployeeLogin extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                String email = ds.child("email").getValue(String.class);
-                                String password = ds.child("password").getValue(String.class);
-                                if (email.equals(Email) && password.equals(Password)) {
+                                String e = ds.child("email").getValue(String.class);
+                                String p = ds.child("password").getValue(String.class);
+                                if (e.equals(Email) && p.equals(Password)) {
                                     editor.putInt(Constant.Current_M_ID, ds.child("m_ID").getValue(Integer.class));
                                     editor.putString(Constant.USER_TYPE,"Managers");
                                     editor.apply();
