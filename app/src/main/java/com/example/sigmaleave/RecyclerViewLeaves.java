@@ -54,10 +54,11 @@ public class RecyclerViewLeaves extends AppCompatActivity implements OnItemClick
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         getEmployeeDetails();
-        adapter = new LeavesAdapter(LeavesArrayList, RecyclerViewLeaves.this, this);
+
         recyclerView.setHasFixedSize(true);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new LeavesAdapter(LeavesArrayList, RecyclerViewLeaves.this, this);
         recyclerView.setAdapter(adapter);
 
     }
