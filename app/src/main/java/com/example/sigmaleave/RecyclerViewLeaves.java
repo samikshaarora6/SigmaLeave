@@ -53,10 +53,11 @@ public class RecyclerViewLeaves extends AppCompatActivity implements OnItemClick
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         getEmployeeDetails();
-        adapter = new LeavesAdapter(LeavesArrayList, RecyclerViewLeaves.this, this);
+
         recyclerView.setHasFixedSize(true);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new LeavesAdapter(LeavesArrayList, RecyclerViewLeaves.this, this);
         recyclerView.setAdapter(adapter);
 
     }
@@ -112,6 +113,7 @@ public class RecyclerViewLeaves extends AppCompatActivity implements OnItemClick
             if (employeeArrayList.get(position).getNo_of_leaves() >= days && employeeArrayList.get(position).getNo_of_chunks() != 0) {
                 int currentChunks = employeeArrayList.get(position).getNo_of_chunks();
                 int currentDays = employeeArrayList.get(position).getNo_of_leaves();
+                /////
                 currentChunks = currentChunks - 1;
                 currentDays = currentDays - days;
                 final int finalCurrentChunks = currentChunks;

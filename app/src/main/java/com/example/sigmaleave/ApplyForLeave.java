@@ -52,15 +52,15 @@ public class ApplyForLeave extends AppCompatActivity {
     private Button cancelButton;
     private Button applyButton;
     private RadioGroup radioGroup;
-    private RadioButton fullDay,halfDay,quarterDay;
+    private RadioButton fullDay, halfDay, quarterDay;
     private static final String FIRST_EMPID = "EID";
-    private static final String LeaveId="LeaveNumber";
+    private static final String LeaveId = "LeaveNumber";
+    private static Integer Leave_NO = 0;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     static int currentEMPID = 0;
     static int chunk = 30;
     static int AVleaves = 15;
-    static int LeaveNo=0;
 
 
     @Override
@@ -76,29 +76,36 @@ public class ApplyForLeave extends AppCompatActivity {
         reasonEditText = (EditText) findViewById(R.id.reason);
         applyButton = (Button) findViewById(R.id.apply);
         cancelButton = (Button) findViewById(R.id.cancelButton);
-        radioGroup=findViewById(R.id.radio_1);
+        radioGroup = findViewById(R.id.radio_1);
         radioGroup.clearCheck();
-        fullDay=findViewById(R.id.Fullday1);
-        halfDay=findViewById(R.id.Halfday1);
-        quarterDay=findViewById(R.id.quarter);
+        fullDay = findViewById(R.id.Fullday1);
+        halfDay = findViewById(R.id.Halfday1);
+        quarterDay = findViewById(R.id.quarter);
 
         leaves = new Leaves();
         employee = new Employee();
 
         database = FirebaseDatabase.getInstance();
-        if ((sharedPreferences.getInt(Constant.Current_EMP_ID, -1) >= 0) && sharedPreferences.getInt(Constant.Leave_Nuumber, -1) >= 0) {
+        if ((sharedPreferences.getInt(Constant.Current_EMP_ID, -1) >= 0)) {
             currentEMPID = sharedPreferences.getInt(Constant.Current_EMP_ID, 0);
-            LeaveNo = sharedPreferences.getInt(Constant.Leave_Nuumber,0);
-            database.getReference().child("Employee Details").child(FIRST_EMPID + currentEMPID).child(LeaveId+LeaveNo).addValueEventListener(new ValueEventListener() {
+            database.getReference().child("Employee Details").child(sharedPreferences.getString(Constant.USER_TYPE, "Employees")).child(FIRST_EMPID + currentEMPID).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.hasChild("no_of_chunks")) {
                         chunk = dataSnapshot.child("no_of_chunks").getValue(Integer.class);
                         AVleaves = dataSnapshot.child("no_of_leaves").getValue(Integer.class);
+                        currentEMPID = dataSnapshot.child("e_ID").getValue(Integer.class);
+                        editor.putInt(Constant.Current_EMP_ID,currentEMPID);
+                        editor.apply();
                         employee.setEmail(dataSnapshot.child("email").getValue(String.class));
                         employee.setName(dataSnapshot.child("name").getValue(String.class));
                         employee.setNo_of_chunks(dataSnapshot.child("no_of_chunks").getValue(Integer.class));
                         employee.setNo_of_leaves(dataSnapshot.child("no_of_leaves").getValue(Integer.class));
+                        employee.setManagerName(dataSnapshot.child("managerName").getValue().toString());
+                        employee.setMaritial_Status(dataSnapshot.child("maritial_Status").getValue().toString());
+                        employee.setBloodGroup(dataSnapshot.child("bloodGroup").getValue().toString());
+                        employee.setDOB(dataSnapshot.child("dob").getValue().toString());
+                        Leave_NO = dataSnapshot.child(LeaveId).getValue(Integer.class);
 //                        chunks.setText("Chunk Available" + dataSnapshot.child("no_of_chunks").getValue());
 //                        days.setText("Days Available" + dataSnapshot.child("no_of_leaves").getValue());
                     }
@@ -118,44 +125,69 @@ public class ApplyForLeave extends AppCompatActivity {
             public void onClick(View view) {
                 if (reasonEditText.getText().toString().equals("")) {
                     reasonEditText.setError("Reason is required!");
+                    return;
                 }
+                currentEMPID = sharedPreferences.getInt(Constant.Current_EMP_ID, 0);
+                radioFunctions();
                 leaves.setStartDate(starDateEditText.getText().toString());
                 leaves.setEndDate(endDateEditText.getText().toString());
                 leaves.setReason(reasonEditText.getText().toString());
                 leaves.setStatus(false);
                 leaves.setEmpId(currentEMPID);
                 leaves.setLeaveId(starDateEditText.getText().toString() + "" + endDateEditText.getText().toString() + "" + currentEMPID);
-                databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId+LeaveNo).setValue(leaves).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        LeaveNo++;
-                        databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId+LeaveNo).child("email").setValue(employee.getEmail());
-                        databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId+LeaveNo).child("no_of_chunks").setValue(employee.getNo_of_chunks());
-                        databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId+LeaveNo).child("no_of_leaves").setValue(employee.getNo_of_leaves());
-                        databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId+LeaveNo).child("EID").setValue(currentEMPID);
-                        databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId+LeaveNo).child("name").setValue(employee.getName());
-                        radioFunctions();
-                        databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId+LeaveNo).child("Leave Type").setValue(leaves.getLeaveType());
-                    }
-                });
+                databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId + Leave_NO).child("End Date").setValue(leaves.getEndDate());
+                databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId + Leave_NO).child("Start Date").setValue(leaves.getStartDate());
+                databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId + Leave_NO).child("Reason").setValue(leaves.getReason());
+                databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId + Leave_NO).child("Status").setValue(leaves.isStatus());
+                databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId + Leave_NO).child("EmpID").setValue(leaves.getEmpId());
+                databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId + Leave_NO).child("Leave Type").setValue(leaves.getLeaveType());
+                databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId + Leave_NO).child(LeaveId).setValue(Leave_NO);
+//                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//
+//
+////                        databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId+LeaveNo).child("no_of_chunks").setValue(employee.getNo_of_chunks());
+////                        databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId+LeaveNo).child("no_of_leaves").setValue(employee.getNo_of_leaves());
+////                        databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId+LeaveNo).child("EID").setValue(currentEMPID);
+////                        databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId+LeaveNo).child("name").setValue(employee.getName());
+//
+//                        //databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId+LeaveNo).child("Leave Type").setValue(leaves.getLeaveType());
+//                    }
+//                });
+                database.getReference().child("Employee Details").child(sharedPreferences.getString(Constant.USER_TYPE, "Employees")).child(FIRST_EMPID + currentEMPID).child("no_of_chunks").setValue(employee.getNo_of_chunks());
+                database.getReference().child("Employee Details").child(sharedPreferences.getString(Constant.USER_TYPE, "Employees")).child(FIRST_EMPID + currentEMPID).child("no_of_leaves").setValue(employee.getNo_of_leaves());
+
+                Leave_NO++;
+                database.getReference().child("Employee Details").child(sharedPreferences.getString(Constant.USER_TYPE, "Employees")).child(FIRST_EMPID + currentEMPID).child(LeaveId).setValue(Leave_NO);
+
             }
         });
     }
-    private void radioFunctions(){
+
+    private void radioFunctions() {
         switch (radioGroup.getCheckedRadioButtonId()) {
             case R.id.Fullday1:
                 leaves.setLeaveType(fullDay.getText().toString().trim());
-                chunk=chunk- 1;
-                AVleaves=AVleaves-1;
+                chunk = chunk - 1;
+                AVleaves = AVleaves - 1;
+                employee.setNo_of_chunks(chunk);
+                employee.setNo_of_leaves(AVleaves);
+
 
             case R.id.Halfday1:
-                 leaves.setLeaveType(halfDay.getText().toString().trim());
-                    chunk=chunk- 1;
-                    AVleaves= (int) (AVleaves-0.5);
+                leaves.setLeaveType(halfDay.getText().toString().trim());
+                chunk = chunk - 1;
+                AVleaves = (int) (AVleaves - 0.5);
+                employee.setNo_of_chunks(chunk);
+                employee.setNo_of_leaves(AVleaves);
+
             case R.id.quarter:
                 leaves.setLeaveType(quarterDay.getText().toString().trim());
-                chunk=chunk- 1;
-                AVleaves= (int) (AVleaves-0.25);
+                chunk = chunk - 1;
+                AVleaves = (int) (AVleaves - 0.25);
+                employee.setNo_of_chunks(chunk);
+                employee.setNo_of_leaves(AVleaves);
         }
     }
 }

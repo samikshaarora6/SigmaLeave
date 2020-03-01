@@ -73,6 +73,7 @@ public class EmployeeLogin extends AppCompatActivity {
                                 String p = ds.child("password").getValue(String.class);
                                 if (e.equals(Email) && p.equals(Password)) {
                                     editor.putInt(Constant.Current_M_ID, ds.child("m_ID").getValue(Integer.class));
+                                    editor.putString(Constant.USER_TYPE,"Managers");
                                     editor.apply();
                                     Intent it = new Intent(EmployeeLogin.this, ManagerDashboard.class);
                                     startActivity(it);
@@ -101,6 +102,7 @@ public class EmployeeLogin extends AppCompatActivity {
                                 String password = ds.child("password").getValue(String.class);
                                 if (email.equals(Email) && password.equals(Password)) {
                                     editor.putInt(Constant.Current_EMP_ID, ds.child("e_ID").getValue(Integer.class));
+                                    editor.putString(Constant.USER_TYPE,"Employees");
                                     editor.apply();
                                     Toast.makeText(EmployeeLogin.this, "Welcome ! ", Toast.LENGTH_SHORT).show();
                                     Intent it = new Intent(EmployeeLogin.this, EmployeeDashboard.class);
