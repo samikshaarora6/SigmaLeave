@@ -98,14 +98,11 @@ public class RecyclerViewLeaves extends AppCompatActivity implements OnItemClick
                 dialog.dismiss();
                 adapter.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 dialog.dismiss();
-
             }
         });
-
     }
 
     @Override
@@ -117,7 +114,7 @@ public class RecyclerViewLeaves extends AppCompatActivity implements OnItemClick
             //TODO Please Calculate Difference between two dates , acc. to that subtract chunks and leaves as like below code
             int days = 2;
             getEmployeeDetails();
-            if (employeeArrayList.get(position).getNo_of_leaves() >= days && employeeArrayList.get(position).getNo_of_chunks() != 0) {
+            if (employeeArrayList.get(position).getNo_of_leaves()-1 >= days && employeeArrayList.get(position).getNo_of_chunks() != 0) {
                 int currentChunks = employeeArrayList.get(position).getNo_of_chunks();
                 int currentDays = employeeArrayList.get(position).getNo_of_leaves();
                 /////
@@ -138,6 +135,9 @@ public class RecyclerViewLeaves extends AppCompatActivity implements OnItemClick
                     }
                 });
             }
+        }
+        else{
+            Toast.makeText(RecyclerViewLeaves.this, "Rejected", Toast.LENGTH_SHORT).show();
         }
 
     }

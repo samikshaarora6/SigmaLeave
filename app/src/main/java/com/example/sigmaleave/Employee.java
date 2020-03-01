@@ -7,16 +7,6 @@ public class Employee {
     int no_of_leaves;
     int no_of_chunks;
     int E_ID;
-
-//    public Long getEmpID() {
-//        return EmpID;
-//    }
-//
-//    public void setEmpID(Long empID) {
-//        EmpID = empID;
-//    }
-
-//    Long EmpID;
     String DOB;
     String Maritial_Status;
     String MobileNumber;
@@ -40,8 +30,6 @@ public class Employee {
         MobileNumber = mobileNumber;
         ManagerName = managerName;
         BloodGroup=bloodGroup;
-     //   EmpID=empID;
-
     }
 
     public String getDOB() {
