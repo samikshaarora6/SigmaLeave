@@ -9,9 +9,6 @@
     android:background="@drawable/back"
     android:layout_gravity="center"
     tools:context=".ApplyForLeave">
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -113,5 +110,4 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/round"
         android:text="Apply" />
-    </androidx.core.widget.NestedScrollView>
 </LinearLayout>

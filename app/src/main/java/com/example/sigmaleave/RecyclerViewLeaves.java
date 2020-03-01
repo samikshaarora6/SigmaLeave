@@ -51,7 +51,6 @@ public class RecyclerViewLeaves extends AppCompatActivity implements OnItemClick
         dialog.show();
         LeavesArrayList = new ArrayList<Leaves>();
 
-
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         getEmployeeDetails();
         adapter = new LeavesAdapter(LeavesArrayList, RecyclerViewLeaves.this, this);

@@ -14,18 +14,21 @@
         android:layout_height="wrap_content"
         android:text="APPLY LEAVE"
         android:layout_marginTop="20dp"
+        android:background="@drawable/round"
         android:id="@+id/apply"/>
     <Button
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="PROFILE"
+        android:background="@drawable/round"
         android:id="@+id/PROF"/>
     <Button
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
         android:text="Approve Leaves"
+        android:background="@drawable/round"
         android:id="@+id/vieww"/>
 
 </LinearLayout>
