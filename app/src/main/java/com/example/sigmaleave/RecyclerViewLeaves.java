@@ -2,7 +2,9 @@ package com.example.sigmaleave;
 
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +29,10 @@ public class RecyclerViewLeaves extends AppCompatActivity implements OnItemClick
     TextView t1;
     Button b1;
     private FirebaseAuth firebaseAuth;
+    private static final String LeaveId = "LeaveNumber";
+    private static Integer Leave_NO = 0;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     private DatabaseReference databaseReference;
     private FirebaseDatabase database;
     private ArrayList<Leaves> LeavesArrayList;
@@ -71,26 +77,26 @@ public class RecyclerViewLeaves extends AppCompatActivity implements OnItemClick
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    if (dataSnapshot1.hasChild("status")) {
-                        if (!dataSnapshot1.child("status").getValue(Boolean.class)) {
-                            if (dataSnapshot1.hasChild("startDate")) {
-                                String StartDate = dataSnapshot1.child("startDate").getValue(String.class);
-                                String EndDate = dataSnapshot1.child("endDate").getValue(String.class);
+                    for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
+                        if (dataSnapshot2.hasChild("Status")) {
+                            if (!dataSnapshot2.child("Status").getValue(Boolean.class)) {
+                                if (dataSnapshot2.hasChild("Start Date")) {
+                                    String StartDate = dataSnapshot2.child("Start Date").getValue(String.class);
+                                    String EndDate = dataSnapshot2.child("End Date").getValue(String.class);
 //                        Leaves leaves = new Leaves(StartDate, EndDate);
-                                Leaves leaves = dataSnapshot1.getValue(Leaves.class);
-                                Employee employee = dataSnapshot1.getValue(Employee.class);
+                                    Leaves leaves = dataSnapshot2.getValue(Leaves.class);
+                                Employee employee = dataSnapshot2.getValue(Employee.class);
                                 employeeArrayList.add(employee);
-                                LeavesArrayList.add(leaves);
-                                t1.setText(StartDate);
+                                    LeavesArrayList.add(leaves);
+                                    t1.setText(StartDate);
+                                }
                             }
                         }
                     }
-
                     adapter.notifyDataSetChanged();
                 }
                 dialog.dismiss();
                 adapter.notifyDataSetChanged();
-
             }
 
             @Override
@@ -110,6 +116,7 @@ public class RecyclerViewLeaves extends AppCompatActivity implements OnItemClick
             String endDate = LeavesArrayList.get(position).getEndDate();
             //TODO Please Calculate Difference between two dates , acc. to that subtract chunks and leaves as like below code
             int days = 2;
+            getEmployeeDetails();
             if (employeeArrayList.get(position).getNo_of_leaves() >= days && employeeArrayList.get(position).getNo_of_chunks() != 0) {
                 int currentChunks = employeeArrayList.get(position).getNo_of_chunks();
                 int currentDays = employeeArrayList.get(position).getNo_of_leaves();
@@ -130,12 +137,8 @@ public class RecyclerViewLeaves extends AppCompatActivity implements OnItemClick
                         Toast.makeText(RecyclerViewLeaves.this, "Approved", Toast.LENGTH_SHORT).show();
                     }
                 });
-
             }
-
         }
-
-        getEmployeeDetails();
 
     }
 }
