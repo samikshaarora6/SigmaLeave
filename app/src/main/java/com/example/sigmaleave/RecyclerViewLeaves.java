@@ -71,22 +71,21 @@ public class RecyclerViewLeaves extends AppCompatActivity implements OnItemClick
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
-                        if (dataSnapshot2.hasChild("Status")) {
-                            if (!dataSnapshot2.child("Status").getValue(Boolean.class)) {
-                                if (dataSnapshot2.hasChild("Start Date")) {
-                                    String StartDate = dataSnapshot2.child("Start Date").getValue(String.class);
-                                    String EndDate = dataSnapshot2.child("End Date").getValue(String.class);
+                    if (dataSnapshot1.hasChild("status")) {
+                        if (!dataSnapshot1.child("status").getValue(Boolean.class)) {
+                            if (dataSnapshot1.hasChild("startDate")) {
+                                String StartDate = dataSnapshot1.child("startDate").getValue(String.class);
+                                String EndDate = dataSnapshot1.child("endDate").getValue(String.class);
 //                        Leaves leaves = new Leaves(StartDate, EndDate);
-                                    Leaves leaves = dataSnapshot2.getValue(Leaves.class);
-//                                Employee employee = dataSnapshot1.getValue(Employee.class);
-//                                employeeArrayList.add(employee);
-                                    LeavesArrayList.add(leaves);
-                                    t1.setText(StartDate);
-                                }
+                                Leaves leaves = dataSnapshot1.getValue(Leaves.class);
+                                Employee employee = dataSnapshot1.getValue(Employee.class);
+                                employeeArrayList.add(employee);
+                                LeavesArrayList.add(leaves);
+                                t1.setText(StartDate);
                             }
                         }
                     }
+
                     adapter.notifyDataSetChanged();
                 }
                 dialog.dismiss();

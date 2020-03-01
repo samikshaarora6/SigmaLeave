@@ -17,6 +17,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -30,7 +31,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Calendar;
 
 public class Add extends AppCompatActivity {
-    private EditText name, password, email, date, manag, bloodGroup, MaritialStat, mobileNumber;
+    private EditText name, password, email, manag, bloodGroup, MaritialStat, mobileNumber,EMPId;
+    TextView date;
     private Button button;
     private Employee employee;
     private Manager m;
@@ -58,6 +60,7 @@ public class Add extends AppCompatActivity {
         name = findViewById(R.id.Addname);
         email = findViewById(R.id.Addemail);
         password = findViewById(R.id.Addpass);
+        EMPId=findViewById(R.id.AddEid);
         MaritialStat = findViewById(R.id.AddMaritial);
         mobileNumber = findViewById(R.id.AddMobileNumber);
         date = findViewById(R.id.AddDOB);
@@ -81,7 +84,6 @@ public class Add extends AppCompatActivity {
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
-
                 DatePickerDialog dialog = new DatePickerDialog(
                         Add.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
@@ -97,13 +99,10 @@ public class Add extends AppCompatActivity {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
                 Log.d(TAG, "onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
-
-                String datee = day + "-" + month + "-" + year;
+                    String datee = day + "-" + month + "-" + year;
                 date.setText(datee);
             }
         };
-
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,6 +119,7 @@ public class Add extends AppCompatActivity {
                                     employee.setNo_of_chunks(30);
                                     employee.setNo_of_leaves(15);
                                     employee.setE_ID(currentEMPID);
+                                   // employee.setEmpID(EMPId.getText().toString().trim());
                                     employee.setBloodGroup(bloodGroup.getText().toString().trim());
                                     employee.setDOB(date.getText().toString().trim());
                                     employee.setManagerName(manag.getText().toString().trim());
@@ -143,13 +143,13 @@ public class Add extends AppCompatActivity {
 
                                 } else {
                                     currentEMPID = 0;
-
                                     employee.setName(name.getText().toString());
                                     employee.setEmail(email.getText().toString());
                                     employee.setPassword(password.getText().toString());
                                     employee.setNo_of_chunks(30);
                                     employee.setNo_of_leaves(15);
                                     employee.setE_ID(currentEMPID);
+                                   // employee.setEmpID(EMPId.getText().toString().trim());
                                     employee.setBloodGroup(bloodGroup.getText().toString().trim());
                                     employee.setDOB(date.getText().toString().trim());
                                     employee.setManagerName(manag.getText().toString().trim());
@@ -176,11 +176,8 @@ public class Add extends AppCompatActivity {
                             public void onCancelled(@NonNull DatabaseError databaseError) {
                             }
                         });
-
                         break;
-
                     case R.id.radioButton1:
-
                         database.getReference().child("CurrentMID").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
@@ -236,7 +233,6 @@ public class Add extends AppCompatActivity {
                                     });
                                 }
                             }
-
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
                             }

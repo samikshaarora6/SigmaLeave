@@ -19,9 +19,7 @@ public class Employee {
     public void setBloodGroup(String bloodGroup) {
         BloodGroup = bloodGroup;
     }
-
     String BloodGroup;
-
     public Employee(String name, String email, String password,
                     String DOB, String maritial_Status, String mobileNumber, String managerName, String bloodGroup) {
         this.name = name;
@@ -32,7 +30,6 @@ public class Employee {
         MobileNumber = mobileNumber;
         ManagerName = managerName;
         BloodGroup=bloodGroup;
-
     }
 
     public String getDOB() {

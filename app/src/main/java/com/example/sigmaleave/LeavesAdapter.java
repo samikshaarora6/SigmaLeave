@@ -2,6 +2,7 @@ package com.example.sigmaleave;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ public class LeavesAdapter extends RecyclerView.Adapter<LeavesAdapter.ContactVie
     private ArrayList<Leaves> contactList;
     private Context mContext;
     OnItemClickListener onItemClickListener;
+    SharedPreferences sharedPreferences;
 
 
     public LeavesAdapter(ArrayList<Leaves> contactList, Context mContext, OnItemClickListener onItemClickListener) {

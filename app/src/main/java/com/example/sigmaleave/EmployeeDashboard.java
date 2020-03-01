@@ -9,7 +9,6 @@ import android.widget.Button;
 
 public class EmployeeDashboard extends AppCompatActivity {
     private Button btn,btn2;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

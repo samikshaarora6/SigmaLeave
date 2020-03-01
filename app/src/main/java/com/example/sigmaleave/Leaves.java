@@ -2,6 +2,24 @@ package com.example.sigmaleave;
 
 public class Leaves {
 
+    String reason;
+    String leaveId;
+    String startDate;
+    String endDate;
+    boolean ManagerApproved;
+    boolean AdminApproval;
+
+    public boolean isAdminApproval() {
+        return AdminApproval;
+    }
+
+    public void setAdminApproval(boolean adminApproval) {
+        AdminApproval = adminApproval;
+    }
+
+    int empId;
+    String LeaveType;
+
     public String getReason() {
         return reason;
     }
@@ -10,13 +28,14 @@ public class Leaves {
         this.reason = reason;
     }
 
-    public Leaves(String reason, String leaveId, String startDate, String endDate, boolean status, int empId, String leaveType) {
+    public Leaves(String reason, String leaveId, String startDate, String endDate, boolean statusM, boolean statusA,int empId, String leaveType) {
         this.reason = reason;
         this.leaveId = leaveId;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.status = status;
+        this.ManagerApproved = statusM;
         this.empId = empId;
+        this.AdminApproval=statusA;
         LeaveType = leaveType;
     }
 
@@ -45,11 +64,11 @@ public class Leaves {
     }
 
     public boolean isStatus() {
-        return status;
+        return ManagerApproved;
     }
 
     public void setStatus(boolean status) {
-        this.status = status;
+        this.ManagerApproved = status;
     }
 
     public int getEmpId() {
@@ -71,13 +90,4 @@ public class Leaves {
         LeaveType = leaveType;
     }
 
-
-
-    String reason;
-    String leaveId;
-    String startDate;
-    String endDate;
-    boolean status;
-    int empId;
-    String LeaveType;
 }
