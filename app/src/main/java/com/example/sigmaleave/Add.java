@@ -119,7 +119,6 @@ public class Add extends AppCompatActivity {
                                     employee.setNo_of_chunks(30);
                                     employee.setNo_of_leaves(15);
                                     employee.setE_ID(currentEMPID);
-                                   // employee.setEmpID(EMPId.getText().toString().trim());
                                     employee.setBloodGroup(bloodGroup.getText().toString().trim());
                                     employee.setDOB(date.getText().toString().trim());
                                     employee.setManagerName(manag.getText().toString().trim());
@@ -149,7 +148,6 @@ public class Add extends AppCompatActivity {
                                     employee.setNo_of_chunks(30);
                                     employee.setNo_of_leaves(15);
                                     employee.setE_ID(currentEMPID);
-                                   // employee.setEmpID(EMPId.getText().toString().trim());
                                     employee.setBloodGroup(bloodGroup.getText().toString().trim());
                                     employee.setDOB(date.getText().toString().trim());
                                     employee.setManagerName(manag.getText().toString().trim());
@@ -165,7 +163,6 @@ public class Add extends AppCompatActivity {
                                             editor.putInt(Constant.Running_EMP_ID, currentEMPID);
                                             editor.apply();
                                             Toast.makeText(Add.this, " Employee Added Successfully ", Toast.LENGTH_SHORT);
-
                                         }
                                     });
 
@@ -188,12 +185,12 @@ public class Add extends AppCompatActivity {
                                     m.setPassword(password.getText().toString());
                                     m.setNo_of_chunks(30);
                                     m.setNo_of_leaves(15);
+                                    m.setBloodGroup(bloodGroup.getText().toString().trim());
+                                    m.setDOB(date.getText().toString().trim());
+                                    m.setManagerName(manag.getText().toString().trim());
+                                    m.setMaritial_Status(MaritialStat.getText().toString().trim());
+                                    m.setMobileNumber(mobileNumber.getText().toString().trim());
                                     m.setM_ID(currentMID);
-//                                        employee.setBloodGroup(bloodGroup.getText().toString().trim());
-//                                        employee.setDOB(date.getText().toString().trim());
-//                                        employee.setManagerName(manag.getText().toString().trim());
-//                                        employee.setMaritial_Status(MaritialStat.getText().toString().trim());
-//                                        employee.setMobileNumber(mobileNumber.getText().toString().trim());
                                     databaseReference.child("Managers").child(FIRST_MID + currentMID).setValue(m).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
@@ -203,7 +200,7 @@ public class Add extends AppCompatActivity {
                                             database.getReference().child("CurrentMID").setValue(currentMID);
                                             editor.putInt(Constant.Running_M_ID, currentMID);
                                             editor.apply();
-                                            Toast.makeText(Add.this, " Manager Added Successfully ", Toast.LENGTH_SHORT);
+                                            Toast.makeText(Add.this, "Manager Added Successfully ", Toast.LENGTH_SHORT);
                                         }
                                     });
 
@@ -214,12 +211,12 @@ public class Add extends AppCompatActivity {
                                     m.setPassword(password.getText().toString());
                                     m.setNo_of_chunks(30);
                                     m.setNo_of_leaves(15);
+                                    m.setBloodGroup(bloodGroup.getText().toString().trim());
+                                    m.setDOB(date.getText().toString().trim());
+                                    m.setManagerName(manag.getText().toString().trim());
+                                    m.setMaritial_Status(MaritialStat.getText().toString().trim());
+                                    m.setMobileNumber(mobileNumber.getText().toString().trim());
                                     m.setM_ID(currentMID);
-//                                        employee.setBloodGroup(bloodGroup.getText().toString().trim());
-//                                        employee.setDOB(date.getText().toString().trim());
-//                                        employee.setManagerName(manag.getText().toString().trim());
-//                                        employee.setMaritial_Status(MaritialStat.getText().toString().trim());
-//                                        employee.setMobileNumber(mobileNumber.getText().toString().trim());
                                     databaseReference.child("Managers").child(FIRST_MID + currentMID).setValue(m).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {

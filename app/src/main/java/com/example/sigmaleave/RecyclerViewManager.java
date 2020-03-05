@@ -1,8 +1,9 @@
 package com.example.sigmaleave;
 
+import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.app.ProgressDialog;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class RecyclerViewLeaves extends AppCompatActivity implements OnItemClickListener {
+public class RecyclerViewManager extends AppCompatActivity implements OnItemClickListener {
     private static final String TAG = "RecyclerViewLeaves";
     TextView t1;
     Button b1;
@@ -42,22 +43,27 @@ public class RecyclerViewLeaves extends AppCompatActivity implements OnItemClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recyclerview);
+        setContentView(R.layout.recyclerviewm);
         t1 = findViewById(R.id.textView);
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
-        dialog = new ProgressDialog(RecyclerViewLeaves.this);
+
+        dialog = new ProgressDialog(RecyclerViewManager.this);
         dialog.setMessage("Loading....");
         dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(false);
         dialog.show();
         LeavesArrayList = new ArrayList<Leaves>();
+
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         getEmployeeDetails();
+
         recyclerView.setHasFixedSize(true);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new LeavesAdapter(LeavesArrayList, RecyclerViewLeaves.this, this);
+        adapter = new LeavesAdapter(LeavesArrayList, RecyclerViewManager.this, this);
         recyclerView.setAdapter(adapter);
+
     }
 
     public void getEmployeeDetails() {
@@ -85,14 +91,19 @@ public class RecyclerViewLeaves extends AppCompatActivity implements OnItemClick
                 }
                 adapter.notifyDataSetChanged();
                 dialog.dismiss();
+
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 dialog.dismiss();
+
             }
         });
+
     }
+
     @Override
     public void onItemClick(final int id, final int position, boolean status, int leaveId) {
         if (status) {
@@ -121,14 +132,20 @@ public class RecyclerViewLeaves extends AppCompatActivity implements OnItemClick
                     }
 
                 }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
+
                 }
             });
-            database.getReference().child("Leave Requests").child("EID" + id).child("LeaveNumber" + leaveId).child("adminApproval").setValue(true).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+            database.getReference().child("Leave Requests").child("EID" + id).child("LeaveNumber" + leaveId).child("managerApproved").setValue(true).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    Toast.makeText(RecyclerViewLeaves.this, "Approved", Toast.LENGTH_SHORT).show();
+                    // database.getReference().child("Leave Requests").child("EID" + id).child("no_of_chunks").setValue(finalCurrentChunks);
+//                        database.getReference().child("Leave Requests").child("EID" + id).child("no_of_leaves").setValue(finalCurrentDays);
+
+                    Toast.makeText(RecyclerViewManager.this, "Approved", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
             });
@@ -138,17 +155,21 @@ public class RecyclerViewLeaves extends AppCompatActivity implements OnItemClick
             getEmployeeDetails();
         }
         else{
-            database.getReference().child("Leave Requests").child("EID" + id).child("LeaveNumber" + leaveId).child("adminApproval").setValue(false).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Toast.makeText(RecyclerViewLeaves.this, "Approved", Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
-                }
-            });
+            database.getReference().child("Leave Requests").child("EID" + id).child("LeaveNumber" + leaveId).child("managerApproved").setValue(false).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                // database.getReference().child("Leave Requests").child("EID" + id).child("no_of_chunks").setValue(finalCurrentChunks);
+//                        database.getReference().child("Leave Requests").child("EID" + id).child("no_of_leaves").setValue(finalCurrentDays);
+
+                Toast.makeText(RecyclerViewManager.this, "Disapproved", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
             database.getReference().child("Employee Details").child("EID" + id).child("no_of_chunks").setValue(finalCurrentChunks);
             database.getReference().child("Employee Details").child("EID" + id).child("no_of_leaves").setValue(finalCurrentDays);
             dialog.dismiss();
             getEmployeeDetails();
+
         }
 
     }

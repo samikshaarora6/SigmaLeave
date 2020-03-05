@@ -1,29 +1,84 @@
 package com.example.sigmaleave;
 
 public class Manager {
-    public String getName() {
-        return name;
+    String name;
+    String email;
+    String password;
+    int no_of_leaves;
+    int no_of_chunks;
+
+    public Manager() {
+
     }
 
-    public void setName(String name) {
+    public int getM_ID() {
+        return M_ID;
+    }
+
+    public void setM_ID(int m_ID) {
+        M_ID = m_ID;
+    }
+
+    int M_ID;
+    String DOB;
+    String Maritial_Status;
+    String MobileNumber;
+    String ManagerName;
+
+    public String getBloodGroup() {
+        return BloodGroup;
+    }
+
+    public void setBloodGroup(String bloodGroup) {
+        BloodGroup = bloodGroup;
+    }
+    String BloodGroup;
+    public Manager(String name, String email, String password,
+                    String DOB, String maritial_Status, String mobileNumber, String managerName, String bloodGroup) {
         this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
         this.password = password;
+        this.DOB = DOB;
+        Maritial_Status = maritial_Status;
+        MobileNumber = mobileNumber;
+        ManagerName = managerName;
+        BloodGroup=bloodGroup;
     }
+
+    public String getDOB() {
+        return DOB;
+    }
+
+    public void setDOB(String DOB) {
+        this.DOB = DOB;
+    }
+
+    public String getMaritial_Status() {
+        return Maritial_Status;
+    }
+
+    public void setMaritial_Status(String maritial_Status) {
+        Maritial_Status = maritial_Status;
+    }
+
+    public String getMobileNumber() {
+        return MobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        MobileNumber = mobileNumber;
+    }
+
+    public String getManagerName() {
+        return ManagerName;
+    }
+
+    public void setManagerName(String managerName) {
+        ManagerName = managerName;
+    }
+
+
+
 
     public int getNo_of_leaves() {
         return no_of_leaves;
@@ -41,30 +96,28 @@ public class Manager {
         this.no_of_chunks = no_of_chunks;
     }
 
-    public int getM_ID() {
-        return M_ID;
+    public String getPassword() {
+        return password;
     }
 
-    public void setM_ID(int m_ID) {
-        M_ID = m_ID;
-    }
-
-    public Manager() {
-    }
-
-    public Manager(String name, String email, String password, int no_of_leaves, int no_of_chunks, int m_ID) {
-        this.name = name;
-        this.email = email;
+    public void setPassword(String password) {
         this.password = password;
-        this.no_of_leaves = no_of_leaves;
-        this.no_of_chunks = no_of_chunks;
-        M_ID = m_ID;
     }
 
-    String name;
-    String email;
-    String password;
-    int no_of_leaves;
-    int no_of_chunks;
-    int M_ID;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
 }

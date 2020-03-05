@@ -13,15 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class LeavesAdapter extends RecyclerView.Adapter<LeavesAdapter.ContactViewHolder> {
-
+public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ContactViewHolder> {
     private ArrayList<Leaves> contactList;
     private Context mContext;
     OnItemClickListener onItemClickListener;
     SharedPreferences sharedPreferences;
 
 
-    public LeavesAdapter(ArrayList<Leaves> contactList, Context mContext, OnItemClickListener onItemClickListener) {
+    public ManagerAdapter(ArrayList<Leaves> contactList, Context mContext, OnItemClickListener onItemClickListener) {
         this.contactList = contactList;
         this.mContext = mContext;
         this.onItemClickListener = onItemClickListener;
@@ -29,14 +28,14 @@ public class LeavesAdapter extends RecyclerView.Adapter<LeavesAdapter.ContactVie
 
     @NonNull
     @Override
-    public ContactViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ManagerAdapter.ContactViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
         View view = layoutInflater.inflate(R.layout.leaves, viewGroup, false);
         return new ContactViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ContactViewHolder contactViewHolder, final int position) {
+    public void onBindViewHolder(ManagerAdapter.ContactViewHolder contactViewHolder, final int position) {
         contactViewHolder.details.setText(contactList.get(position).getStartDate());
         contactViewHolder.yess.setOnClickListener(new View.OnClickListener() {
             @Override

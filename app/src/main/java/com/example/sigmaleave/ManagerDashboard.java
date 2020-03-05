@@ -17,6 +17,15 @@ public class ManagerDashboard extends AppCompatActivity {
         setContentView(R.layout.activity_manager_dashboard);
         btn=findViewById(R.id.PROF);
         btn2=findViewById(R.id.apply);
+        btn1=findViewById(R.id.viewwL);
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(ManagerDashboard.this,RecyclerViewManager.class);
+                startActivity(intent);
+
+            }
+        });
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
