@@ -35,8 +35,8 @@ public class RecyclerViewLeaves extends AppCompatActivity implements OnItemClick
     ProgressDialog dialog;
     LeavesAdapter adapter;
     private static final String LeaveId = "LeaveNumber";
-    final int finalCurrentChunks = 0;
-    final int finalCurrentDays = 0;
+    int finalCurrentChunks = 0;
+    int finalCurrentDays = 0;
 
 
     @Override
@@ -126,6 +126,7 @@ public class RecyclerViewLeaves extends AppCompatActivity implements OnItemClick
             final Employee[] employee = {new Employee()};
             String startDate = LeavesArrayList.get(position).getStartDate();
             String endDate = LeavesArrayList.get(position).getEndDate();
+
             //TODO Please Calculate Difference between two dates , acc. to that subtract chunks and leaves as like below code
             final int days = 2;
             database.getReference().child("Employee Details").addValueEventListener(new ValueEventListener() {
@@ -140,8 +141,8 @@ public class RecyclerViewLeaves extends AppCompatActivity implements OnItemClick
                                 /////
                                 currentChunks = currentChunks - 1;
                                 currentDays = currentDays - days;
-                                final int finalCurrentChunks = currentChunks;
-                                final int finalCurrentDays = currentDays;
+                            finalCurrentChunks = currentChunks;
+                            finalCurrentDays = currentDays;
 
 
                             }
