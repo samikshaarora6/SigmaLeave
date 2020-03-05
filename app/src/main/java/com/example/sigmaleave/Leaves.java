@@ -3,21 +3,21 @@ package com.example.sigmaleave;
 public class Leaves {
 
     String reason;
-    String leaveId;
+    Integer leaveId;
     String startDate;
     String endDate;
-    boolean ManagerApproved;
-    boolean AdminApproval;
+    Boolean ManagerApproved;
+    Boolean AdminApproval;
 
-    public boolean isAdminApproval() {
+    public Boolean isAdminApproval() {
         return AdminApproval;
     }
 
-    public void setAdminApproval(boolean adminApproval) {
+    public void setAdminApproval(Boolean adminApproval) {
         AdminApproval = adminApproval;
     }
 
-    int empId;
+    Integer empId;
     String LeaveType;
 
     public String getReason() {
@@ -28,23 +28,31 @@ public class Leaves {
         this.reason = reason;
     }
 
-    public Leaves(String reason, String leaveId, String startDate, String endDate, boolean statusM, boolean statusA,int empId, String leaveType) {
+    public Leaves(String reason, Integer leaveId, String startDate, String endDate, boolean managerApproved, Boolean adminApproval, int empId, String leaveType) {
         this.reason = reason;
         this.leaveId = leaveId;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.ManagerApproved = statusM;
+        ManagerApproved = managerApproved;
+        AdminApproval = adminApproval;
         this.empId = empId;
-        this.AdminApproval=statusA;
         LeaveType = leaveType;
     }
 
-    public String getLeaveId() {
+    public Integer getLeaveId() {
         return leaveId;
     }
 
-    public void setLeaveId(String leaveId) {
+    public void setLeaveId(Integer leaveId) {
         this.leaveId = leaveId;
+    }
+
+    public boolean isManagerApproved() {
+        return ManagerApproved;
+    }
+
+    public void setManagerApproved(boolean managerApproved) {
+        ManagerApproved = managerApproved;
     }
 
     public String getStartDate() {
@@ -71,11 +79,11 @@ public class Leaves {
         this.ManagerApproved = status;
     }
 
-    public int getEmpId() {
+    public Integer getEmpId() {
         return empId;
     }
 
-    public void setEmpId(int empId) {
+    public void setEmpId(Integer empId) {
         this.empId = empId;
     }
 

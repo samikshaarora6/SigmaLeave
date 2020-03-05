@@ -95,7 +95,7 @@ public class ApplyForLeave extends AppCompatActivity {
                         chunk = dataSnapshot.child("no_of_chunks").getValue(Integer.class);
                         AVleaves = dataSnapshot.child("no_of_leaves").getValue(Integer.class);
                         currentEMPID = dataSnapshot.child("e_ID").getValue(Integer.class);
-                        editor.putInt(Constant.Current_EMP_ID,currentEMPID);
+                        editor.putInt(Constant.Current_EMP_ID, currentEMPID);
                         editor.apply();
                         employee.setEmail(dataSnapshot.child("email").getValue(String.class));
                         employee.setName(dataSnapshot.child("name").getValue(String.class));
@@ -134,14 +134,18 @@ public class ApplyForLeave extends AppCompatActivity {
                 leaves.setReason(reasonEditText.getText().toString());
                 leaves.setStatus(false);
                 leaves.setEmpId(currentEMPID);
-                leaves.setLeaveId(starDateEditText.getText().toString() + "" + endDateEditText.getText().toString() + "" + currentEMPID);
-                databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId + Leave_NO).child("End Date").setValue(leaves.getEndDate());
-                databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId + Leave_NO).child("Start Date").setValue(leaves.getStartDate());
-                databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId + Leave_NO).child("Reason").setValue(leaves.getReason());
-                databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId + Leave_NO).child("Status").setValue(leaves.isStatus());
-                databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId + Leave_NO).child("EmpID").setValue(leaves.getEmpId());
-                databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId + Leave_NO).child("Leave Type").setValue(leaves.getLeaveType());
-                databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId + Leave_NO).child(LeaveId).setValue(Leave_NO);
+                leaves.setAdminApproval(false);
+                leaves.setLeaveId(Leave_NO);
+//             //   leaves.setLeaveId(starDateEditText.getText().toString() + "" + endDateEditText.getText().toString() + "" + currentEMPID);
+//                databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId + Leave_NO).child("End Date").setValue(leaves.getEndDate());
+//                databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId + Leave_NO).child("Start Date").setValue(leaves.getStartDate());
+//                databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId + Leave_NO).child("Reason").setValue(leaves.getReason());
+//                databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId + Leave_NO).child("Status").setValue(leaves.isStatus());
+//                databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId + Leave_NO).child("EmpID").setValue(leaves.getEmpId());
+//                databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId + Leave_NO).child("Leave Type").setValue(leaves.getLeaveType());
+                databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId + Leave_NO).setValue(leaves);
+                //databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId + Leave_NO).setValue(employee);
+
 //                        .addOnSuccessListener(new OnSuccessListener<Void>() {
 //                    @Override
 //                    public void onSuccess(Void aVoid) {
@@ -155,6 +159,8 @@ public class ApplyForLeave extends AppCompatActivity {
 //                        //databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId+LeaveNo).child("Leave Type").setValue(leaves.getLeaveType());
 //                    }
 //                });
+                database.getReference().child("Employee Details").child(sharedPreferences.getString(Constant.USER_TYPE, "Employees")).child(FIRST_EMPID + currentEMPID).setValue(employee);
+
                 database.getReference().child("Employee Details").child(sharedPreferences.getString(Constant.USER_TYPE, "Employees")).child(FIRST_EMPID + currentEMPID).child("no_of_chunks").setValue(employee.getNo_of_chunks());
                 database.getReference().child("Employee Details").child(sharedPreferences.getString(Constant.USER_TYPE, "Employees")).child(FIRST_EMPID + currentEMPID).child("no_of_leaves").setValue(employee.getNo_of_leaves());
 
