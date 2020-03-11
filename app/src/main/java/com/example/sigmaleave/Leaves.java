@@ -47,7 +47,7 @@ public class Leaves {
         this.leaveId = leaveId;
     }
 
-    public boolean isManagerApproved() {
+    public Boolean isManagerApproved() {
         return ManagerApproved;
     }
 
@@ -71,7 +71,7 @@ public class Leaves {
         this.endDate = endDate;
     }
 
-    public boolean isStatus() {
+    public Boolean isStatus() {
         return ManagerApproved;
     }
 
