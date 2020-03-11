@@ -51,7 +51,6 @@ public class LeavesAdapter extends RecyclerView.Adapter<LeavesAdapter.ContactVie
             }
         });
 
-
     }
 
     @Override

@@ -171,7 +171,7 @@ public class ApplyForLeave extends AppCompatActivity {
         });
     }
 
-    private void radioFunctions() {
+    public void radioFunctions() {
         switch (radioGroup.getCheckedRadioButtonId()) {
             case R.id.Fullday1:
                 leaves.setLeaveType(fullDay.getText().toString().trim());

@@ -3,16 +3,14 @@
     android:layout_width="match_parent"
     android:background="@drawable/back"
     android:layout_height="match_parent">
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-           android:layout_marginTop="250dp"
+            android:layout_marginTop="250dp"
             android:orientation="vertical">
-
             <EditText
                 android:id="@+id/Addname"
                 android:layout_width="match_parent"
@@ -27,6 +25,7 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:hint="Enter Email"
+                android:inputType="textEmailAddress"
                 android:textSize="20dp" />
             <EditText
                 android:id="@+id/AddMaritial"
@@ -64,16 +63,97 @@
                 android:gravity="center"
                 android:hint="Enter DOB"
                 android:maxLength="10"
-
                 android:textSize="20dp" />
-            <EditText
+            <TextView
                 android:id="@+id/AddManager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:hint="Enter Manager Name"
+                android:text="Select Manager"
                 android:textSize="20dp" />
+            <RadioGroup
+                android:id="@+id/managers"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:weightSum="1">
+                <RadioButton
+                    android:id="@+id/MID0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:checked="false"
+                    android:text="Ashok Sharma"
+                    android:textSize="16dp" />
+                <RadioButton
+                    android:id="@+id/MID1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:checked="false"
+                    android:text="Lokesh Kumar"
+                    android:textSize="16dp" />
+                <RadioButton
+                    android:id="@+id/MID2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:checked="false"
+                    android:text="Manoj Verma"
+                    android:textSize="16dp" />
+                <RadioButton
+                    android:id="@+id/MID3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:checked="false"
+                    android:text="Rahul Gupta"
+                    android:textSize="16dp" />
+                <RadioButton
+                    android:id="@+id/MID4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:checked="false"
+                    android:text="Rahul Mahaur"
+                    android:textSize="16dp" />
+                <RadioButton
+                    android:id="@+id/MID5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:checked="false"
+                    android:text="Rajitha S.R"
+                    android:textSize="16dp" />
+                <RadioButton
+                    android:id="@+id/MID6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:checked="false"
+                    android:text="Ravinder Singh Cheema"
+                    android:textSize="16dp" />
+                <RadioButton
+                    android:id="@+id/MID7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:checked="false"
+                    android:text="Santram Rajput"
+                    android:textSize="16dp" />
+                <RadioButton
+                    android:id="@+id/MID8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:checked="false"
+                    android:text="VijayaKumar Nalluri"
+                    android:textSize="16dp" />
+            </RadioGroup>
             <EditText
                 android:id="@+id/AddBloodGroup"
                 android:layout_width="match_parent"
@@ -91,6 +171,9 @@
                 android:inputType="textVisiblePassword"
                 android:hint="Enter Password"
                 android:textSize="20dp" />
+
+
+
             <RadioGroup
                 android:id="@+id/radioGroup"
                 android:layout_width="fill_parent"

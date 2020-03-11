@@ -30,7 +30,7 @@ public class RecyclerViewEmployees extends AppCompatActivity {
 
         //Firebase init
         database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("Employee Details").child("Employees");
+        databaseReference = database.getReference("Users");
         recyclerView = (RecyclerView)findViewById(R.id.recyclerViewemp);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);

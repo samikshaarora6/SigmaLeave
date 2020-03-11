@@ -23,23 +23,25 @@ import com.google.firebase.database.ValueEventListener;
 
 public class EmployeeLogin extends AppCompatActivity {
     private Button btnLogin;
-    private EditText inputEmail, inputPassword;
+    private EditText inputEmail, inputPassword,inputManager;
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
     Employee employee;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    CheckBox mgr;
+    private CheckBox mgr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.employeelogin);
+
         sharedPreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         inputEmail = findViewById(R.id.em);
         inputPassword = findViewById(R.id.p);
+        inputManager=findViewById(R.id.manager);
         btnLogin = findViewById(R.id.Login);
         mgr=findViewById(R.id.checkBox);
         employee = new Employee();
@@ -54,17 +56,15 @@ public class EmployeeLogin extends AppCompatActivity {
                 final String Email = inputEmail.getText().toString();
                 final String Password = inputPassword.getText().toString();
                 if (TextUtils.isEmpty((Email))) {
-                    Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Enter Email Address!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 if (TextUtils.isEmpty((Password))) {
-                    Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Enter Password!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (mgr.isChecked()) {
                     DatabaseReference managerRef=databaseReference.child("Employee Details").child("Managers");
-
                     ValueEventListener event = new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -78,48 +78,48 @@ public class EmployeeLogin extends AppCompatActivity {
                                     Intent it = new Intent(EmployeeLogin.this, ManagerDashboard.class);
                                     startActivity(it);
                                     Toast.makeText(EmployeeLogin.this, "Welcome Manager!", Toast.LENGTH_SHORT).show();
-
-                                } else {
+                                }
+                                else
+                                    {
                                     Toast.makeText(EmployeeLogin.this, "Check Credentials.", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }
-
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
-
                         }
                     };
                     managerRef.addListenerForSingleValueEvent(event);
                 }
                 else {
-                    DatabaseReference usersdRef = databaseReference.child("Employee Details").child("Employees");
+                    String managerName=inputManager.getText().toString().trim();
+                    DatabaseReference usersdRef = databaseReference.child("Employee Details").child("Users").child(managerName);
                     ValueEventListener eventListener = new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                String email = ds.child("email").getValue(String.class);
-                                String password = ds.child("password").getValue(String.class);
-                                if (email.equals(Email) && password.equals(Password)) {
-                                    editor.putInt(Constant.Current_EMP_ID, ds.child("e_ID").getValue(Integer.class));
-                                    editor.putString(Constant.USER_TYPE,"Employees");
-                                    editor.apply();
-                                    Toast.makeText(EmployeeLogin.this, "Welcome ! ", Toast.LENGTH_SHORT).show();
-                                    Intent it = new Intent(EmployeeLogin.this, EmployeeDashboard.class);
-                                    startActivity(it);
-                                } else {
-                                    Toast.makeText(EmployeeLogin.this, "Check Credentials.", Toast.LENGTH_SHORT).show();
+                                    String email = ds.child("email").getValue(String.class);
+                                    String password = ds.child("password").getValue(String.class);
+                                    if (email.equals(Email) && password.equals(Password))
+                                    {
+                                        editor.putInt(Constant.Current_EMP_ID, ds.child("e_ID").getValue(Integer.class));
+                                        editor.putString(Constant.USER_TYPE, "Employees");
+                                        editor.apply();
+                                        Toast.makeText(EmployeeLogin.this, "Welcome ! ", Toast.LENGTH_SHORT).show();
+                                        Intent it = new Intent(EmployeeLogin.this, EmployeeDashboard.class);
+                                        startActivity(it);
+                                    }
+                                    else {
+                                        Toast.makeText(EmployeeLogin.this, "Check Credentials.", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             }
-                        }
-
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
                         }
                     };
                     usersdRef.addListenerForSingleValueEvent(eventListener);
                 }
-
             }
         });
     }

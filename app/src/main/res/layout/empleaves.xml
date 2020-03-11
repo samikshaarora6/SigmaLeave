@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#DAF2F2">
+            <TextView
+                android:id="@+id/userName_textView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:paddingLeft="10dp"
+                android:text="Employee name"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/userName_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:paddingLeft="10dp"
+                android:text="Employee name"
+                android:layout_below="@+id/userName_textView1"
+                android:textStyle="italic"
+                android:textColor="#000"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/userSurname_textView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/userName_textView"
+                android:layout_margin="10dp"
+                android:paddingLeft="10dp"
+                android:text="Manager Name"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/userSurname_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/userSurname_textView1"
+                android:layout_margin="10dp"
+                android:paddingLeft="10dp"
+                android:text="Manager Name"
+                android:textStyle="italic"
+                android:textColor="#000"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/user_number_textView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/userSurname_textView"
+                android:layout_margin="10dp"
+                android:paddingLeft="10dp"
+                android:text="Email"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/user_number_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_number_textView1"
+                android:layout_margin="10dp"
+                android:paddingLeft="10dp"
+                android:text="Email"
+                android:textStyle="italic"
+                android:textColor="#000"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/userEmployeeId1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_number_textView"
+                android:layout_margin="10dp"
+                android:paddingLeft="10dp"
+                android:text="Employee ID"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:id="@+id/userEmployeeId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/userEmployeeId1"
+                android:layout_margin="10dp"
+                android:paddingLeft="10dp"
+                android:text="Employee ID"
+                android:textStyle="italic"
+                android:textColor="#000"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/userDOB1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/userEmployeeId"
+                android:layout_margin="10dp"
+                android:paddingLeft="10dp"
+                android:text="Approved by Manager"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:id="@+id/userDOB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/userDOB1"
+                android:layout_margin="10dp"
+                android:paddingLeft="10dp"
+                android:text="DOB"
+                android:textStyle="italic"
+                android:textColor="#000"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/useStat1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/userDOB"
+                android:layout_margin="10dp"
+                android:paddingLeft="10dp"
+                android:text="Approved by Admin"
+                android:textStyle="bold"
+                android:textColor="#000"
+
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/useStat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/useStat1"
+                android:layout_margin="10dp"
+                android:paddingLeft="10dp"
+                android:text="Maritial Status"
+                android:textStyle="italic"
+                android:textColor="#000"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/useMOB1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/useStat"
+                android:layout_margin="10dp"
+                android:paddingLeft="10dp"
+                android:text="Status"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/useMOB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/useMOB1"
+                android:layout_margin="10dp"
+                android:paddingLeft="10dp"
+                android:text="Mobile Number"
+                android:textStyle="italic"
+                android:textColor="#000"
+                android:textSize="16sp" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

@@ -37,6 +37,31 @@
                 tools:ignore="RtlCompat"
 
                 />
+            <TextView
+                android:id="@+id/details2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Details"
+                android:textColor="@android:color/background_dark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="12dp"
+                app:fontFamily="serif-monospace"
+                tools:ignore="RtlCompat"
+
+                />
+            <TextView
+                android:id="@+id/details3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Details"
+                android:textColor="@android:color/background_dark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="12dp"
+                app:fontFamily="serif-monospace" tools:ignore="RtlCompat"
+
+                />
 
 
 

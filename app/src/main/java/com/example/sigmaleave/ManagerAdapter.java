@@ -36,7 +36,9 @@ public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ContactV
 
     @Override
     public void onBindViewHolder(ManagerAdapter.ContactViewHolder contactViewHolder, final int position) {
-        contactViewHolder.details.setText(contactList.get(position).getStartDate());
+        contactViewHolder.startDate.setText(contactList.get(position).getStartDate());
+        contactViewHolder.endDate.setText(contactList.get(position).getEndDate());
+        contactViewHolder.reason.setText(contactList.get(position).getEmpId());
         contactViewHolder.yess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,8 +51,6 @@ public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ContactV
                 onItemClickListener.onItemClick(contactList.get(position).getEmpId(), position, false,contactList.get(position).getLeaveId());
             }
         });
-
-
     }
 
     @Override
@@ -59,15 +59,15 @@ public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ContactV
     }
 
     public static class ContactViewHolder extends RecyclerView.ViewHolder {
-        TextView details;
+        TextView startDate, endDate,reason;
         Button yess, No;
-
         public ContactViewHolder(@NonNull View itemView) {
             super(itemView);
             yess = itemView.findViewById(R.id.yes);
             No = itemView.findViewById(R.id.no);
-            details = itemView.findViewById(R.id.details);
+            startDate = itemView.findViewById(R.id.details);
+            endDate=itemView.findViewById(R.id.details2);
+            reason=itemView.findViewById(R.id.details3);
         }
     }
-
 }

@@ -17,6 +17,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,15 +37,17 @@ public class Add extends AppCompatActivity {
     private Button button;
     private Employee employee;
     private Manager m;
-    private RadioGroup radioEmpGroup;
+    private RadioGroup radioEmpGroup,radioMgrGroup;
     private RadioButton manager, emp;
     private FirebaseAuth mAuth;
+
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
     private static final String FIRST_EMPID = "EID";
     private static final String FIRST_MID = "MID";
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private static final String TAG = "Add";
+    Spinner spin;
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -57,6 +60,7 @@ public class Add extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add);
+
         name = findViewById(R.id.Addname);
         email = findViewById(R.id.Addemail);
         password = findViewById(R.id.Addpass);
@@ -64,18 +68,27 @@ public class Add extends AppCompatActivity {
         MaritialStat = findViewById(R.id.AddMaritial);
         mobileNumber = findViewById(R.id.AddMobileNumber);
         date = findViewById(R.id.AddDOB);
-        manag = findViewById(R.id.AddManager);
+       // manag = findViewById(R.id.AddManager);
+
         bloodGroup = findViewById(R.id.AddBloodGroup);
+        radioEmpGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        radioEmpGroup.clearCheck();
+        radioMgrGroup=findViewById(R.id.managers);
+        radioMgrGroup.clearCheck();
+        manager = findViewById(R.id.radioButton1);
+        emp = findViewById(R.id.radioButton);
+
+
+       // spin = (Spinner) findViewById(R.id.spinM);
+       // String[] objects = { "MID0 - A", "MID1 - B", "MID2 - C"};
+
         button = findViewById(R.id.Added);
         sharedPreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         employee = new Employee();
         m = new Manager();
         database = FirebaseDatabase.getInstance();
-        radioEmpGroup = (RadioGroup) findViewById(R.id.radioGroup);
-        radioEmpGroup.clearCheck();
-        manager = findViewById(R.id.radioButton1);
-        emp = findViewById(R.id.radioButton);
+
         databaseReference = database.getReference().child("Employee Details");
         date.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +116,7 @@ public class Add extends AppCompatActivity {
                 date.setText(datee);
             }
         };
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,24 +135,25 @@ public class Add extends AppCompatActivity {
                                     employee.setE_ID(currentEMPID);
                                     employee.setBloodGroup(bloodGroup.getText().toString().trim());
                                     employee.setDOB(date.getText().toString().trim());
-                                    employee.setManagerName(manag.getText().toString().trim());
+                                    //employee.setManagerName(manag.getText().toString().trim());
                                     employee.setMaritial_Status(MaritialStat.getText().toString().trim());
                                     employee.setMobileNumber(mobileNumber.getText().toString().trim());
-                                    databaseReference.child("Employees").child(FIRST_EMPID + currentEMPID).setValue(employee).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @SuppressLint("ShowToast")
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-
-                                            databaseReference.child("Employees").child(FIRST_EMPID + currentEMPID).child(LeaveId).setValue(Leave_NO);
-                                            currentEMPID++;
-                                            database.getReference().child("CurrentEMPID").setValue(currentEMPID);
-                                            editor.putInt(Constant.Running_EMP_ID, currentEMPID);
-                                            editor.apply();
-
-                                            Toast.makeText(Add.this, " Employee Added Successfully ", Toast.LENGTH_SHORT);
-
-                                        }
-                                    });
+//                                    databaseReference.child("Users").child(FIRST_MID+currentMID).child(String.valueOf(manag.getText().toString().trim())).child(FIRST_EMPID + currentEMPID).setValue(employee).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                        @SuppressLint("ShowToast")
+//                                        @Override
+//                                        public void onSuccess(Void aVoid) {
+//
+//                                            databaseReference.child("Users").child(FIRST_MID+currentMID).child(String.valueOf(manag.getText().toString().trim())).child(FIRST_EMPID + currentEMPID).child(LeaveId).setValue(Leave_NO);
+//                                            currentEMPID++;
+//                                            database.getReference().child("CurrentEMPID").setValue(currentEMPID);
+//                                            editor.putInt(Constant.Running_EMP_ID, currentEMPID);
+//                                            editor.apply();
+//
+//                                            Toast.makeText(Add.this, " Employee Added Successfully ", Toast.LENGTH_SHORT);
+//
+//                                        }
+//                                    });
+                                    selectManagerName();
 
                                 } else {
                                     currentEMPID = 0;
@@ -150,21 +165,22 @@ public class Add extends AppCompatActivity {
                                     employee.setE_ID(currentEMPID);
                                     employee.setBloodGroup(bloodGroup.getText().toString().trim());
                                     employee.setDOB(date.getText().toString().trim());
-                                    employee.setManagerName(manag.getText().toString().trim());
+                                    //employee.setManagerName(manag.getText().toString().trim());
                                     employee.setMaritial_Status(MaritialStat.getText().toString().trim());
                                     employee.setMobileNumber(mobileNumber.getText().toString().trim());
-                                    databaseReference.child("Employees").child(FIRST_EMPID + currentEMPID).setValue(employee).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @SuppressLint("ShowToast")
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            databaseReference.child("Employees").child(FIRST_EMPID + currentEMPID).child(LeaveId).setValue(Leave_NO);
-                                            currentEMPID++;
-                                            database.getReference().child("CurrentEMPID").setValue(currentEMPID);
-                                            editor.putInt(Constant.Running_EMP_ID, currentEMPID);
-                                            editor.apply();
-                                            Toast.makeText(Add.this, " Employee Added Successfully ", Toast.LENGTH_SHORT);
-                                        }
-                                    });
+//                                    databaseReference.child("Users").child(FIRST_MID+currentMID).child(manag.getText().toString().trim()).child(FIRST_EMPID + currentEMPID).setValue(employee).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                        @SuppressLint("ShowToast")
+//                                        @Override
+//                                        public void onSuccess(Void aVoid) {
+//                                            databaseReference.child("Users").child(FIRST_EMPID + currentEMPID).child(manag.getText().toString().trim()).child(LeaveId).setValue(Leave_NO);
+//                                            currentEMPID++;
+//                                            database.getReference().child("CurrentEMPID").setValue(currentEMPID);
+//                                            editor.putInt(Constant.Running_EMP_ID, currentEMPID);
+//                                            editor.apply();
+//                                            Toast.makeText(Add.this, " Employee Added Successfully ", Toast.LENGTH_SHORT);
+//                                        }
+//                                    });
+                                    selectManagerName();
 
                                 }
                             }
@@ -187,15 +203,15 @@ public class Add extends AppCompatActivity {
                                     m.setNo_of_leaves(15);
                                     m.setBloodGroup(bloodGroup.getText().toString().trim());
                                     m.setDOB(date.getText().toString().trim());
-                                    m.setManagerName(manag.getText().toString().trim());
+//                                    m.setManagerName(manag.getText().toString().trim());
                                     m.setMaritial_Status(MaritialStat.getText().toString().trim());
                                     m.setMobileNumber(mobileNumber.getText().toString().trim());
                                     m.setM_ID(currentMID);
-                                    databaseReference.child("Managers").child(FIRST_MID + currentMID).setValue(m).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    databaseReference.child("Users").child(FIRST_MID + currentMID).setValue(m).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
 
-                                            databaseReference.child("Managers").child(FIRST_MID + currentMID).child(LeaveId).setValue(Leave_NO);
+                                            databaseReference.child("Users").child(FIRST_MID + currentMID).child(LeaveId).setValue(Leave_NO);
                                             currentMID++;
                                             database.getReference().child("CurrentMID").setValue(currentMID);
                                             editor.putInt(Constant.Running_M_ID, currentMID);
@@ -213,14 +229,14 @@ public class Add extends AppCompatActivity {
                                     m.setNo_of_leaves(15);
                                     m.setBloodGroup(bloodGroup.getText().toString().trim());
                                     m.setDOB(date.getText().toString().trim());
-                                    m.setManagerName(manag.getText().toString().trim());
+  //                                  m.setManagerName(manag.getText().toString().trim());
                                     m.setMaritial_Status(MaritialStat.getText().toString().trim());
                                     m.setMobileNumber(mobileNumber.getText().toString().trim());
                                     m.setM_ID(currentMID);
-                                    databaseReference.child("Managers").child(FIRST_MID + currentMID).setValue(m).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    databaseReference.child("Users").child(FIRST_MID + currentMID).setValue(m).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            databaseReference.child("Managers").child(FIRST_MID + currentMID).child(LeaveId).setValue(Leave_NO);
+                                            databaseReference.child("Users").child(FIRST_MID + currentMID).child(LeaveId).setValue(Leave_NO);
                                             currentMID++;
                                             database.getReference().child("CurrentMID").setValue(currentMID);
                                             editor.putInt(Constant.Running_M_ID, currentMID);
@@ -238,5 +254,136 @@ public class Add extends AppCompatActivity {
                 }
             }
         });
+    }
+    private void selectManagerName(){
+        switch (radioMgrGroup.getCheckedRadioButtonId()){
+            case R.id.MID0:
+                databaseReference.child("Users").child("MID0").child(FIRST_EMPID + currentEMPID).setValue(employee).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @SuppressLint("ShowToast")
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        databaseReference.child("Users").child("MID0").child(FIRST_EMPID + currentEMPID).child(LeaveId).setValue(Leave_NO);
+                        currentEMPID++;
+                        database.getReference().child("CurrentEMPID").setValue(currentEMPID);
+                        editor.putInt(Constant.Running_EMP_ID, currentEMPID);
+                        editor.apply();
+                        Toast.makeText(Add.this, " Employee Added Successfully ", Toast.LENGTH_SHORT);
+                    }
+                });
+                break;
+            case R.id.MID1:
+                databaseReference.child("Users").child("MID1").child(FIRST_EMPID + currentEMPID).setValue(employee).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @SuppressLint("ShowToast")
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        databaseReference.child("Users").child("MID1").child(FIRST_EMPID + currentEMPID).child(LeaveId).setValue(Leave_NO);
+                        currentEMPID++;
+                        database.getReference().child("CurrentEMPID").setValue(currentEMPID);
+                        editor.putInt(Constant.Running_EMP_ID, currentEMPID);
+                        editor.apply();
+                        Toast.makeText(Add.this, " Employee Added Successfully ", Toast.LENGTH_SHORT);
+                    }
+                });
+                break;
+            case R.id.MID2:
+                databaseReference.child("Users").child("MID2").child(FIRST_EMPID + currentEMPID).setValue(employee).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @SuppressLint("ShowToast")
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        databaseReference.child("Users").child("MID2").child(FIRST_EMPID + currentEMPID).child(LeaveId).setValue(Leave_NO);
+                        currentEMPID++;
+                        database.getReference().child("CurrentEMPID").setValue(currentEMPID);
+                        editor.putInt(Constant.Running_EMP_ID, currentEMPID);
+                        editor.apply();
+                        Toast.makeText(Add.this, " Employee Added Successfully ", Toast.LENGTH_SHORT);
+                    }
+                });
+                break;
+            case R.id.MID3:
+                databaseReference.child("Users").child("MID3").child(FIRST_EMPID + currentEMPID).setValue(employee).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @SuppressLint("ShowToast")
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        databaseReference.child("Users").child("MID3").child(FIRST_EMPID + currentEMPID).child(LeaveId).setValue(Leave_NO);
+                        currentEMPID++;
+                        database.getReference().child("CurrentEMPID").setValue(currentEMPID);
+                        editor.putInt(Constant.Running_EMP_ID, currentEMPID);
+                        editor.apply();
+                        Toast.makeText(Add.this, " Employee Added Successfully ", Toast.LENGTH_SHORT);
+                    }
+                });
+
+                break;
+            case R.id.MID4:
+                databaseReference.child("Users").child("MID4").child(FIRST_EMPID + currentEMPID).setValue(employee).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @SuppressLint("ShowToast")
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        databaseReference.child("Users").child("MID4").child(FIRST_EMPID + currentEMPID).child(LeaveId).setValue(Leave_NO);
+                        currentEMPID++;
+                        database.getReference().child("CurrentEMPID").setValue(currentEMPID);
+                        editor.putInt(Constant.Running_EMP_ID, currentEMPID);
+                        editor.apply();
+                        Toast.makeText(Add.this, " Employee Added Successfully ", Toast.LENGTH_SHORT);
+                    }
+                });
+                break;
+            case R.id.MID5:
+                databaseReference.child("Users").child("MID5").child(FIRST_EMPID + currentEMPID).setValue(employee).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @SuppressLint("ShowToast")
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        databaseReference.child("Users").child("MID5").child(FIRST_EMPID + currentEMPID).child(LeaveId).setValue(Leave_NO);
+                        currentEMPID++;
+                        database.getReference().child("CurrentEMPID").setValue(currentEMPID);
+                        editor.putInt(Constant.Running_EMP_ID, currentEMPID);
+                        editor.apply();
+                        Toast.makeText(Add.this, " Employee Added Successfully ", Toast.LENGTH_SHORT);
+                    }
+                });
+                break;
+            case R.id.MID6:
+                databaseReference.child("Users").child("MID6").child(FIRST_EMPID + currentEMPID).setValue(employee).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @SuppressLint("ShowToast")
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        databaseReference.child("Users").child("MID6").child(FIRST_EMPID + currentEMPID).child(LeaveId).setValue(Leave_NO);
+                        currentEMPID++;
+                        database.getReference().child("CurrentEMPID").setValue(currentEMPID);
+                        editor.putInt(Constant.Running_EMP_ID, currentEMPID);
+                        editor.apply();
+                        Toast.makeText(Add.this, " Employee Added Successfully ", Toast.LENGTH_SHORT);
+                    }
+                });
+                break;
+            case R.id.MID7:
+                databaseReference.child("Users").child("MID7").child(FIRST_EMPID + currentEMPID).setValue(employee).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @SuppressLint("ShowToast")
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        databaseReference.child("Users").child("MID7").child(FIRST_EMPID + currentEMPID).child(LeaveId).setValue(Leave_NO);
+                        currentEMPID++;
+                        database.getReference().child("CurrentEMPID").setValue(currentEMPID);
+                        editor.putInt(Constant.Running_EMP_ID, currentEMPID);
+                        editor.apply();
+                        Toast.makeText(Add.this, " Employee Added Successfully ", Toast.LENGTH_SHORT);
+                    }
+                });
+                break;
+            case R.id.MID8:
+                databaseReference.child("Users").child("MID8").child(FIRST_EMPID + currentEMPID).setValue(employee).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @SuppressLint("ShowToast")
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        databaseReference.child("Users").child("MID8").child(FIRST_EMPID + currentEMPID).child(LeaveId).setValue(Leave_NO);
+                        currentEMPID++;
+                        database.getReference().child("CurrentEMPID").setValue(currentEMPID);
+                        editor.putInt(Constant.Running_EMP_ID, currentEMPID);
+                        editor.apply();
+                        Toast.makeText(Add.this, " Employee Added Successfully ", Toast.LENGTH_SHORT);
+                    }
+                });
+                break;
+        }
     }
 }

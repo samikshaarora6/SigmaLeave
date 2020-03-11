@@ -21,11 +21,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class RecyclerViewManager extends AppCompatActivity implements OnItemClickListener {
     private static final String TAG = "RecyclerViewLeaves";
-    TextView t1;
+    TextView t1,t2,t3;
     Button b1;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
@@ -45,6 +50,8 @@ public class RecyclerViewManager extends AppCompatActivity implements OnItemClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recyclerviewm);
         t1 = findViewById(R.id.textView);
+        t2=findViewById(R.id.textView1);
+        t3=findViewById(R.id.textView3);
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
 
@@ -63,9 +70,7 @@ public class RecyclerViewManager extends AppCompatActivity implements OnItemClic
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new LeavesAdapter(LeavesArrayList, RecyclerViewManager.this, this);
         recyclerView.setAdapter(adapter);
-
     }
-
     public void getEmployeeDetails() {
         dialog.show();
         employeeArrayList = new ArrayList<>();
@@ -73,35 +78,26 @@ public class RecyclerViewManager extends AppCompatActivity implements OnItemClic
         database.getReference().child("Leave Requests").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
                         if (dataSnapshot2.hasChild("status")) {
                             if (!dataSnapshot2.child("status").getValue(Boolean.class)) {
-                                if (dataSnapshot2.hasChild("startDate")) {
                                     Leaves leaves = dataSnapshot2.getValue(Leaves.class);
                                     Employee employee = dataSnapshot2.getValue(Employee.class);
                                     employeeArrayList.add(employee);
                                     LeavesArrayList.add(leaves);
-                                }
                             }
-
                         }
                     }
                 }
                 adapter.notifyDataSetChanged();
                 dialog.dismiss();
-
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 dialog.dismiss();
-
             }
         });
-
     }
 
     @Override
@@ -112,21 +108,34 @@ public class RecyclerViewManager extends AppCompatActivity implements OnItemClic
             final Employee[] employee = {new Employee()};
             String startDate = LeavesArrayList.get(position).getStartDate();
             String endDate = LeavesArrayList.get(position).getEndDate();
+            final int diff= Integer.parseInt(getCountOfDays(startDate,endDate));
+
             //TODO Please Calculate Difference between two dates , acc. to that subtract chunks and leaves as like below code
-            final int days = 2;
-            database.getReference().child("Employee Details").addValueEventListener(new ValueEventListener() {
+           // final int days = 2;
+            database.getReference().child("Users").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                        if (dataSnapshot1.hasChild("EID" + id)) {
-                            employee[0] = dataSnapshot1.child("EID" + id).getValue(Employee.class);
-                            if (employee[0].getNo_of_leaves() >= days && employee[0].getNo_of_chunks() != 0) {
-                                int currentChunks = employee[0].getNo_of_chunks();
-                                int currentDays = employee[0].getNo_of_leaves();
-                                currentChunks = currentChunks - 1;
-                                currentDays = currentDays - days;
-                                final int finalCurrentChunks = currentChunks;
-                                final int finalCurrentDays = currentDays;
+                        for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
+                            if (dataSnapshot2.hasChild("EID" + id)) {
+                                employee[0] = dataSnapshot2.child("EID" + id).getValue(Employee.class);
+                                if (employee[0].getNo_of_leaves() >= diff && employee[0].getNo_of_chunks() != 0) {
+                                    int currentChunks = employee[0].getNo_of_chunks();
+                                    int currentDays = employee[0].getNo_of_leaves();
+                                    if (diff == 1) {
+                                        if(dataSnapshot2.child("EID"+id).child("leaveType").getValue(String.class)== "Quarter") {
+                                            currentChunks = currentChunks - 1;
+                                            currentDays = currentDays - 1;
+                                        }
+                                    } else if (diff > 1) {
+                                        currentChunks = currentChunks - 1;
+                                        currentDays = currentDays - diff;
+                                    }
+                                    currentChunks = currentChunks - 1;
+                                    currentDays = currentDays - diff;
+                                    final int finalCurrentChunks = currentChunks;
+                                    final int finalCurrentDays = currentDays;
+                                }
                             }
                         }
                     }
@@ -169,8 +178,64 @@ public class RecyclerViewManager extends AppCompatActivity implements OnItemClic
             database.getReference().child("Employee Details").child("EID" + id).child("no_of_leaves").setValue(finalCurrentDays);
             dialog.dismiss();
             getEmployeeDetails();
+        }
+    }
+    public String getCountOfDays(String createdDateString, String expireDateString) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
+        Date createdConvertedDate = null, expireCovertedDate = null, todayWithZeroTime = null;
+        try {
+            createdConvertedDate = dateFormat.parse(createdDateString);
+            expireCovertedDate = dateFormat.parse(expireDateString);
+            Date today = new Date();
+            todayWithZeroTime = dateFormat.parse(dateFormat.format(today));
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
+        int cYear = 0, cMonth = 0, cDay = 0;
+
+        if (createdConvertedDate.after(todayWithZeroTime)) {
+            Calendar cCal = Calendar.getInstance();
+            cCal.setTime(createdConvertedDate);
+            cYear = cCal.get(Calendar.YEAR);
+            cMonth = cCal.get(Calendar.MONTH);
+            cDay = cCal.get(Calendar.DAY_OF_MONTH);
+
+        } else {
+            Calendar cCal = Calendar.getInstance();
+            cCal.setTime(todayWithZeroTime);
+            cYear = cCal.get(Calendar.YEAR);
+            cMonth = cCal.get(Calendar.MONTH);
+            cDay = cCal.get(Calendar.DAY_OF_MONTH);
+        }
+
+
+    /*Calendar todayCal = Calendar.getInstance();
+    int todayYear = todayCal.get(Calendar.YEAR);
+    int today = todayCal.get(Calendar.MONTH);
+    int todayDay = todayCal.get(Calendar.DAY_OF_MONTH);
+    */
+
+        Calendar eCal = Calendar.getInstance();
+        eCal.setTime(expireCovertedDate);
+
+        int eYear = eCal.get(Calendar.YEAR);
+        int eMonth = eCal.get(Calendar.MONTH);
+        int eDay = eCal.get(Calendar.DAY_OF_MONTH);
+
+        Calendar date1 = Calendar.getInstance();
+        Calendar date2 = Calendar.getInstance();
+
+        date1.clear();
+        date1.set(cYear, cMonth, cDay);
+        date2.clear();
+        date2.set(eYear, eMonth, eDay);
+
+        long diff = date2.getTimeInMillis() - date1.getTimeInMillis();
+
+        float dayCount = (float) diff / (24 * 60 * 60 * 1000);
+
+        return ("" + (int) dayCount + " Days");
     }
 }

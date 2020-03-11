@@ -33,6 +33,17 @@
             android:gravity="center"
             android:visibility="visible"
             app:fontFamily="sans-serif-light" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Manager ID"
+            android:id="@+id/manager"
+            android:layout_marginTop="20dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:visibility="visible"
+            app:fontFamily="sans-serif-light" />
         <CheckBox
             android:id="@+id/checkBox"
             android:layout_width="wrap_content"
