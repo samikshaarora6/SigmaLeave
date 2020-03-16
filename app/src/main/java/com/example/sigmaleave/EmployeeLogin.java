@@ -23,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class EmployeeLogin extends AppCompatActivity {
     private Button btnLogin;
-    private EditText inputEmail, inputPassword,inputManager;
+    private EditText inputEmail, inputPassword,inputManager,inputEID;
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
@@ -44,6 +44,7 @@ public class EmployeeLogin extends AppCompatActivity {
         inputManager=findViewById(R.id.manager);
         btnLogin = findViewById(R.id.Login);
         mgr=findViewById(R.id.checkBox);
+        inputEID=findViewById(R.id.EID);
         employee = new Employee();
 
         mAuth = FirebaseAuth.getInstance();
@@ -53,8 +54,10 @@ public class EmployeeLogin extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String Email = inputEmail.getText().toString();
-                final String Password = inputPassword.getText().toString();
+                final String Email = inputEmail.getText().toString().trim();
+                final String Password = inputPassword.getText().toString().trim();
+                String eID=inputEID.getText().toString().trim();
+
                 if (TextUtils.isEmpty((Email))) {
                     Toast.makeText(getApplicationContext(), "Enter Email Address!", Toast.LENGTH_SHORT).show();
                     return;
@@ -91,7 +94,8 @@ public class EmployeeLogin extends AppCompatActivity {
                     };
                     managerRef.addListenerForSingleValueEvent(event);
                 }
-                else {
+                else
+                    {
                     String managerName=inputManager.getText().toString().trim();
                     DatabaseReference usersdRef = databaseReference.child("Employee Details").child("Users").child(managerName);
                     ValueEventListener eventListener = new ValueEventListener() {

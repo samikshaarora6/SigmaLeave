@@ -1,7 +1,6 @@
 package com.example.sigmaleave;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.app.ProgressDialog;
 import android.widget.Button;
@@ -9,7 +8,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,6 +30,7 @@ public class RecyclerViewManager extends AppCompatActivity implements OnItemClic
     private static final String TAG = "RecyclerViewLeaves";
     TextView t1,t2,t3;
     Button b1;
+
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
     private FirebaseDatabase database;
@@ -43,7 +42,6 @@ public class RecyclerViewManager extends AppCompatActivity implements OnItemClic
     private static final String LeaveId = "LeaveNumber";
     int finalCurrentChunks = 0;
     int finalCurrentDays = 0;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +62,7 @@ public class RecyclerViewManager extends AppCompatActivity implements OnItemClic
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         getEmployeeDetails();
-
         recyclerView.setHasFixedSize(true);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new LeavesAdapter(LeavesArrayList, RecyclerViewManager.this, this);
         recyclerView.setAdapter(adapter);
@@ -110,8 +106,6 @@ public class RecyclerViewManager extends AppCompatActivity implements OnItemClic
             String endDate = LeavesArrayList.get(position).getEndDate();
             final int diff= Integer.parseInt(getCountOfDays(startDate,endDate));
 
-            //TODO Please Calculate Difference between two dates , acc. to that subtract chunks and leaves as like below code
-           // final int days = 2;
             database.getReference().child("Users").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -123,13 +117,18 @@ public class RecyclerViewManager extends AppCompatActivity implements OnItemClic
                                     int currentChunks = employee[0].getNo_of_chunks();
                                     int currentDays = employee[0].getNo_of_leaves();
                                     if (diff == 1) {
-                                        if(dataSnapshot2.child("EID"+id).child("leaveType").getValue(String.class)== "Quarter") {
+                                        if(dataSnapshot2.child("EID"+id).child("leaveType").getValue(String.class).equals("Full")) {
                                             currentChunks = currentChunks - 1;
-                                            currentDays = currentDays - 1;
+                                            currentDays = (int) (currentDays - 1);
                                         }
-                                    } else if (diff > 1) {
-                                        currentChunks = currentChunks - 1;
-                                        currentDays = currentDays - diff;
+                                    } else if (diff < 1) {
+                                        if (dataSnapshot2.child("EID" + id).child("leaveType").getValue(String.class).equals("Quarter")) {
+                                            currentChunks = currentChunks - 1;
+                                            currentDays = (int) (currentDays - 0.25);
+                                        } else {
+                                            currentChunks = currentChunks - 1;
+                                            currentDays = (int) (currentDays - 0.5);
+                                        }
                                     }
                                     currentChunks = currentChunks - 1;
                                     currentDays = currentDays - diff;
@@ -139,12 +138,9 @@ public class RecyclerViewManager extends AppCompatActivity implements OnItemClic
                             }
                         }
                     }
-
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
                 }
             });
 
@@ -183,7 +179,9 @@ public class RecyclerViewManager extends AppCompatActivity implements OnItemClic
     public String getCountOfDays(String createdDateString, String expireDateString) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
-        Date createdConvertedDate = null, expireCovertedDate = null, todayWithZeroTime = null;
+        Date createdConvertedDate = null;
+        Date expireCovertedDate =null;
+        Date todayWithZeroTime=null;
         try {
             createdConvertedDate = dateFormat.parse(createdDateString);
             expireCovertedDate = dateFormat.parse(expireDateString);
@@ -209,13 +207,6 @@ public class RecyclerViewManager extends AppCompatActivity implements OnItemClic
             cMonth = cCal.get(Calendar.MONTH);
             cDay = cCal.get(Calendar.DAY_OF_MONTH);
         }
-
-
-    /*Calendar todayCal = Calendar.getInstance();
-    int todayYear = todayCal.get(Calendar.YEAR);
-    int today = todayCal.get(Calendar.MONTH);
-    int todayDay = todayCal.get(Calendar.DAY_OF_MONTH);
-    */
 
         Calendar eCal = Calendar.getInstance();
         eCal.setTime(expireCovertedDate);

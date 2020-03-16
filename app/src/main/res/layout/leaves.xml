@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:scrollbars="vertical">
+   >
 
 
     <LinearLayout
@@ -14,7 +14,6 @@
         android:layout_alignParentTop="true"
         android:layout_margin="10dp"
         android:background="@android:color/white"
-        android:orientation="horizontal"
         android:weightSum="3"
         tools:ignore="RtlCompat">
 
@@ -33,9 +32,8 @@
                 android:textColor="@android:color/background_dark"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:fontFamily="serif-monospace"
+                app:fontFamily="Caviar Dreams Regular"
                 tools:ignore="RtlCompat"
-
                 />
             <TextView
                 android:id="@+id/details2"
@@ -46,7 +44,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginTop="12dp"
-                app:fontFamily="serif-monospace"
+                app:fontFamily="Caviar Dreams Regular"
                 tools:ignore="RtlCompat"
 
                 />
@@ -59,7 +57,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginTop="12dp"
-                app:fontFamily="serif-monospace" tools:ignore="RtlCompat"
+                tools:ignore="RtlCompat"
 
                 />
 
@@ -71,26 +69,29 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="horizontal"
+            android:orientation="vertical"
+            android:gravity="center"
             android:layout_gravity="center">
 
             <Button
 
                 android:id="@+id/yes"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:text="Y"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:background="@drawable/round"
+                android:text="Approve"
                 android:layout_gravity="center_vertical"
 
                 />
 
             <Button
                 android:id="@+id/no"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:background="@drawable/round"
+                android:layout_marginTop="20dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="0dp"
-                android:text="N" />
+                android:text="Disapprove" />
 
 
         </LinearLayout>

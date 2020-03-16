@@ -20,7 +20,6 @@ public class EmployeeDashboard extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(EmployeeDashboard.this,ApplyForLeave.class);
                 startActivity(intent);
-
             }
         });
 

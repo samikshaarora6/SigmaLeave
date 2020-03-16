@@ -37,7 +37,7 @@ public class AppliedLeavesAdapter extends RecyclerView.Adapter<AppliedLeavesAdap
 
     @Override
     public void onBindViewHolder(ContactViewHolder contactViewHolder, final int position) {
-        contactViewHolder.managerApproved.setText(contactList.get(position).isManagerApproved());
+        //ontactViewHolder.managerApproved.setText(contactList.get(position).isManagerApproved());
     }
 
     @Override

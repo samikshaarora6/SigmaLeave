@@ -16,6 +16,13 @@
         android:background="@drawable/round"
         android:id="@+id/apply"/>
     <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="HISTORY"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/round"
+        android:id="@+id/history"/>
+    <Button
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

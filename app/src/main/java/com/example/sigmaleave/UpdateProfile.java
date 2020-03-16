@@ -86,7 +86,7 @@ public class UpdateProfile extends AppCompatActivity {
                 final String cEmail=cmail.getText().toString().trim();
                 final String Cpassword = cp.getText().toString().trim();
                 final String Npassword = np.getText().toString().trim();
-                final DatabaseReference usersdRef = databaseReference.child("Employee Details");
+                final DatabaseReference usersdRef = databaseReference.child("Users");
                 ValueEventListener eventListener = new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {

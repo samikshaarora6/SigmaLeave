@@ -6,8 +6,6 @@ import androidx.cardview.widget.CardView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 
 public class AdminHomePage extends AppCompatActivity {
     private CardView c1,c2,c3;
@@ -31,7 +29,7 @@ public class AdminHomePage extends AppCompatActivity {
         c2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(AdminHomePage.this,RecyclerViewLeaves.class);
+                Intent intent=new Intent(AdminHomePage.this, RecyclerViewLeavesAdmin.class);
                 startActivity(intent);
                 finish();
 
