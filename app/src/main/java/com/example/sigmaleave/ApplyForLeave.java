@@ -154,14 +154,11 @@ public class ApplyForLeave extends AppCompatActivity {
                         Leave_NO = dataSnapshot.child(LeaveId).getValue(Integer.class);
                     }
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
                 }
             });
         }
-
         databaseReference = database.getReference().child("Leave Requests");
         myCalendar = Calendar.getInstance();
         applyButton.setOnClickListener(new View.OnClickListener() {
@@ -176,9 +173,9 @@ public class ApplyForLeave extends AppCompatActivity {
                 leaves.setStartDate(starDateEditText.getText().toString());
                 leaves.setEndDate(endDateEditText.getText().toString());
                 leaves.setReason(reasonEditText.getText().toString());
-                leaves.setStatus(false);
+                leaves.setStatus(String.valueOf(false));
                 leaves.setEmpId(currentEMPID);
-                leaves.setAdminApproval(false);
+                leaves.setAdminApproval(String.valueOf(false));
                 leaves.setLeaveId(Leave_NO);
                 databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId + Leave_NO).setValue(leaves);
                 database.getReference().child("Users").child(sharedPreferences.getString(Constant.USER_TYPE, "Employees")).child(FIRST_EMPID + currentEMPID).setValue(employee);
@@ -186,11 +183,9 @@ public class ApplyForLeave extends AppCompatActivity {
                 database.getReference().child("Users").child(sharedPreferences.getString(Constant.USER_TYPE, "Employees")).child(FIRST_EMPID + currentEMPID).child("no_of_leaves").setValue(employee.getNo_of_leaves());
                 Leave_NO++;
                 database.getReference().child("Users").child(sharedPreferences.getString(Constant.USER_TYPE, "Employees")).child(FIRST_EMPID + currentEMPID).child(LeaveId).setValue(Leave_NO);
-
             }
         });
     }
-
     public void radioFunctions() {
         switch (radioGroup.getCheckedRadioButtonId()) {
             case R.id.Fullday1:

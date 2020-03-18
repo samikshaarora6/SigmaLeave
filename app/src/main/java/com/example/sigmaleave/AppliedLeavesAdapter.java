@@ -5,20 +5,18 @@ import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
+
 
 public class AppliedLeavesAdapter extends RecyclerView.Adapter<AppliedLeavesAdapter.ContactViewHolder> {
 
     private ArrayList<Leaves> contactList;
     private Context mContext;
     OnItemClickListener onItemClickListener;
-    SharedPreferences sharedPreferences;
+   // SharedPreferences sharedPreferences;
 
 
     public AppliedLeavesAdapter(ArrayList<Leaves> contactList, Context mContext, OnItemClickListener onItemClickListener) {
@@ -31,13 +29,13 @@ public class AppliedLeavesAdapter extends RecyclerView.Adapter<AppliedLeavesAdap
     @Override
     public ContactViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-        View view = layoutInflater.inflate(R.layout.leaves, viewGroup, false);
+        View view = layoutInflater.inflate(R.layout.leavesemployees, viewGroup, false);
         return new ContactViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ContactViewHolder contactViewHolder, final int position) {
-        //ontactViewHolder.managerApproved.setText(contactList.get(position).isManagerApproved());
+        contactViewHolder.managerApproved.setText(contactList.get(position).isManagerApproved());
     }
 
     @Override

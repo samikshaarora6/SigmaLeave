@@ -105,7 +105,6 @@ public class RecyclerViewManager extends AppCompatActivity implements OnItemClic
             String startDate = LeavesArrayList.get(position).getStartDate();
             String endDate = LeavesArrayList.get(position).getEndDate();
             final int diff= Integer.parseInt(getCountOfDays(startDate,endDate));
-
             database.getReference().child("Users").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

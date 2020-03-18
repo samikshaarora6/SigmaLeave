@@ -6,14 +6,14 @@ public class Leaves {
     Integer leaveId;
     String startDate;
     String endDate;
-    Boolean ManagerApproved;
-    Boolean AdminApproval;
+    String ManagerApproved;
+    String AdminApproval;
 
-    public Boolean isAdminApproval() {
+    public String isAdminApproval() {
         return AdminApproval;
     }
 
-    public void setAdminApproval(Boolean adminApproval) {
+    public void setAdminApproval(String adminApproval) {
         AdminApproval = adminApproval;
     }
 
@@ -28,7 +28,7 @@ public class Leaves {
         this.reason = reason;
     }
 
-    public Leaves(String reason, Integer leaveId, String startDate, String endDate, boolean managerApproved, Boolean adminApproval, int empId, String leaveType) {
+    public Leaves(String reason, Integer leaveId, String startDate, String endDate, String managerApproved, String adminApproval, int empId, String leaveType) {
         this.reason = reason;
         this.leaveId = leaveId;
         this.startDate = startDate;
@@ -47,11 +47,11 @@ public class Leaves {
         this.leaveId = leaveId;
     }
 
-    public Boolean isManagerApproved() {
+    public CharSequence isManagerApproved() {
         return ManagerApproved;
     }
 
-    public void setManagerApproved(boolean managerApproved) {
+    public void setManagerApproved(String managerApproved) {
         ManagerApproved = managerApproved;
     }
 
@@ -71,11 +71,11 @@ public class Leaves {
         this.endDate = endDate;
     }
 
-    public Boolean isStatus() {
+    public String isStatus() {
         return ManagerApproved;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.ManagerApproved = status;
     }
 

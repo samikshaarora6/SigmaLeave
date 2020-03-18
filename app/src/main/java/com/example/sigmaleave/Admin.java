@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,6 +29,7 @@ public class Admin extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
     private String email,password;
+    private ProgressBar progressBar;
 
 
     @Override
@@ -38,6 +40,7 @@ public class Admin extends AppCompatActivity {
         inputPassword=findViewById(R.id.p);
         btnLogin=findViewById(R.id.Login);
         mAuth = FirebaseAuth.getInstance();
+        progressBar=findViewById(R.id.progressBarlogin);
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference().child("Admin");
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -68,8 +71,10 @@ public class Admin extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if ((inputEmail.getText().toString().trim().equals(email)) && (inputPassword.getText().toString().trim().equals(password)))
-                    startActivity(new Intent(Admin.this,AdminHomePage.class));
+                progressBar.setVisibility(View.VISIBLE);
+                if ((inputEmail.getText().toString().trim().equals(email)) && (inputPassword.getText().toString().trim().equals(password))){
+                    progressBar.setVisibility(View.GONE);
+                    startActivity(new Intent(Admin.this,AdminHomePage.class));}
                 else
                 {
                     Toast.makeText(Admin.this, "password incorrect", Toast.LENGTH_SHORT).show();

@@ -40,6 +40,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".RecyclerViewEmployees"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AppliedLeavesViewer"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
