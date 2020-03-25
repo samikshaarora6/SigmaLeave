@@ -101,8 +101,8 @@ public class ApplyForLeave extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
-                Log.d(TAG, "onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
-                String date = month + "/" + day + "/" + year;
+                Log.d(TAG, "onDateSet: dd/mm/yyy: " + day + "/" + month + "/" + year);
+                String date = day + "/" + month + "/" + year;
                 starDateEditText.setText(date);
             }
         };
@@ -127,14 +127,14 @@ public class ApplyForLeave extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
-                Log.d(TAG, "onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
-                String date = month + "/" + day + "/" + year;
+                Log.d(TAG, "onDateSet: dd/mm/yyy: " + day + "/" + month + "/" + year);
+                String date = day + "/" + month + "/" + year;
                 endDateEditText.setText(date);
             }
         };
         if ((sharedPreferences.getInt(Constant.Current_EMP_ID, -1) >= 0)) {
             currentEMPID = sharedPreferences.getInt(Constant.Current_EMP_ID, 0);
-            database.getReference().child("Users").child(sharedPreferences.getString(Constant.USER_TYPE, "Employees")).child(FIRST_EMPID + currentEMPID).addValueEventListener(new ValueEventListener() {
+            database.getReference().child("Employee Details").child("Users").child(sharedPreferences.getString(Constant.Current_Employee_M_ID, "MID4")).child(FIRST_EMPID + currentEMPID).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.hasChild("no_of_chunks")) {
@@ -143,14 +143,7 @@ public class ApplyForLeave extends AppCompatActivity {
                         currentEMPID = dataSnapshot.child("e_ID").getValue(Integer.class);
                         editor.putInt(Constant.Current_EMP_ID, currentEMPID);
                         editor.apply();
-                        employee.setEmail(dataSnapshot.child("email").getValue(String.class));
-                        employee.setName(dataSnapshot.child("name").getValue(String.class));
-                        employee.setNo_of_chunks(dataSnapshot.child("no_of_chunks").getValue(Integer.class));
-                        employee.setNo_of_leaves(dataSnapshot.child("no_of_leaves").getValue(Integer.class));
-//                        employee.setManagerName(dataSnapshot.child("managerName").getValue().toString());
-                        employee.setMaritial_Status(dataSnapshot.child("maritial_Status").getValue().toString());
-                        employee.setBloodGroup(dataSnapshot.child("bloodGroup").getValue().toString());
-                        employee.setDOB(dataSnapshot.child("dob").getValue().toString());
+                        employee = dataSnapshot.getValue(Employee.class);
                         Leave_NO = dataSnapshot.child(LeaveId).getValue(Integer.class);
                     }
                 }
@@ -173,10 +166,13 @@ public class ApplyForLeave extends AppCompatActivity {
                 leaves.setStartDate(starDateEditText.getText().toString());
                 leaves.setEndDate(endDateEditText.getText().toString());
                 leaves.setReason(reasonEditText.getText().toString());
-                leaves.setStatus(String.valueOf(false));
+                leaves.setManagerApproved(false);
                 leaves.setEmpId(currentEMPID);
-                leaves.setAdminApproval(String.valueOf(false));
+                leaves.setAdminApproval(false);
                 leaves.setLeaveId(Leave_NO);
+                leaves.setNo_of_leaves(15);
+                leaves.setNo_of_chunks(30);
+                leaves.setM_ID(employee.getM_ID());
                 databaseReference.child(FIRST_EMPID + currentEMPID).child(LeaveId + Leave_NO).setValue(leaves);
                 database.getReference().child("Users").child(sharedPreferences.getString(Constant.USER_TYPE, "Employees")).child(FIRST_EMPID + currentEMPID).setValue(employee);
                 database.getReference().child("Users").child(sharedPreferences.getString(Constant.USER_TYPE, "Employees")).child(FIRST_EMPID + currentEMPID).child("no_of_chunks").setValue(employee.getNo_of_chunks());
@@ -186,26 +182,16 @@ public class ApplyForLeave extends AppCompatActivity {
             }
         });
     }
+
     public void radioFunctions() {
         switch (radioGroup.getCheckedRadioButtonId()) {
             case R.id.Fullday1:
                 leaves.setLeaveType(fullDay.getText().toString().trim());
-//                chunk = chunk - 1;
-//                AVleaves = AVleaves - 1;
-//                employee.setNo_of_chunks(chunk);
-//                employee.setNo_of_leaves(AVleaves);
             case R.id.Halfday1:
                 leaves.setLeaveType(halfDay.getText().toString().trim());
-//                chunk = chunk - 1;
-//                AVleaves = (int) (AVleaves - 0.5);
-//                employee.setNo_of_chunks(chunk);
-//                employee.setNo_of_leaves(AVleaves);
             case R.id.quarter:
                 leaves.setLeaveType(quarterDay.getText().toString().trim());
                 chunk = chunk - 1;
-//                AVleaves = (int) (AVleaves - 0.25);
-//                employee.setNo_of_chunks(chunk);
-//                employee.setNo_of_leaves(AVleaves);
         }
     }
 }

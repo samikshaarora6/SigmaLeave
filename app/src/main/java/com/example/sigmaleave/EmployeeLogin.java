@@ -42,9 +42,9 @@ public class EmployeeLogin extends AppCompatActivity {
         inputEmail = findViewById(R.id.em);
         inputPassword = findViewById(R.id.p);
         inputManager=findViewById(R.id.manager);
+        inputEID=findViewById(R.id.EID);
         btnLogin = findViewById(R.id.Login);
         mgr=findViewById(R.id.checkBox);
-        inputEID=findViewById(R.id.EID);
         employee = new Employee();
 
         mAuth = FirebaseAuth.getInstance();
@@ -54,10 +54,9 @@ public class EmployeeLogin extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String Email = inputEmail.getText().toString().trim();
-                final String Password = inputPassword.getText().toString().trim();
-                String eID=inputEID.getText().toString().trim();
-
+                final String Email = inputEmail.getText().toString();
+                final String Password = inputPassword.getText().toString();
+                String eID=inputEID.getText().toString();
                 if (TextUtils.isEmpty((Email))) {
                     Toast.makeText(getApplicationContext(), "Enter Email Address!", Toast.LENGTH_SHORT).show();
                     return;
@@ -67,7 +66,7 @@ public class EmployeeLogin extends AppCompatActivity {
                     return;
                 }
                 if (mgr.isChecked()) {
-                    DatabaseReference managerRef=databaseReference.child("Employee Details").child("Managers");
+                    DatabaseReference managerRef=databaseReference.child("Employee Details").child("Users");
                     ValueEventListener event = new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -94,8 +93,7 @@ public class EmployeeLogin extends AppCompatActivity {
                     };
                     managerRef.addListenerForSingleValueEvent(event);
                 }
-                else
-                    {
+                else {
                     String managerName=inputManager.getText().toString().trim();
                     DatabaseReference usersdRef = databaseReference.child("Employee Details").child("Users").child(managerName);
                     ValueEventListener eventListener = new ValueEventListener() {
@@ -106,6 +104,7 @@ public class EmployeeLogin extends AppCompatActivity {
                                     String password = ds.child("password").getValue(String.class);
                                     if (email.equals(Email) && password.equals(Password))
                                     {
+                                        editor.putString(Constant.Current_Employee_M_ID, ds.child("m_ID").getValue(String.class));
                                         editor.putInt(Constant.Current_EMP_ID, ds.child("e_ID").getValue(Integer.class));
                                         editor.putString(Constant.USER_TYPE, "Employees");
                                         editor.apply();

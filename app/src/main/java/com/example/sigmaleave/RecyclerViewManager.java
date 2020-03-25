@@ -74,67 +74,53 @@ public class RecyclerViewManager extends AppCompatActivity implements OnItemClic
         database.getReference().child("Leave Requests").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
-                        if (dataSnapshot2.hasChild("status")) {
-                            if (!dataSnapshot2.child("status").getValue(Boolean.class)) {
-                                    Leaves leaves = dataSnapshot2.getValue(Leaves.class);
-                                    Employee employee = dataSnapshot2.getValue(Employee.class);
-                                    employeeArrayList.add(employee);
-                                    LeavesArrayList.add(leaves);
+                        if (dataSnapshot2.hasChild("adminApproval")||dataSnapshot2.hasChild("managerApproved")) {
+                            if (!dataSnapshot2.child("managerApproved").getValue(Boolean.class))
+                            { if (dataSnapshot2.hasChild("startDate")) {
+                                Leaves leaves = dataSnapshot2.getValue(Leaves.class);
+                                Employee employee = dataSnapshot2.getValue(Employee.class);
+                                employeeArrayList.add(employee);
+                                LeavesArrayList.add(leaves);
                             }
+                            }
+
                         }
                     }
                 }
                 adapter.notifyDataSetChanged();
                 dialog.dismiss();
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 dialog.dismiss();
             }
         });
     }
-
-    @Override
-    public void onItemClick(final int id, final int position, boolean status, int leaveId) {
-        if (status) {
+    public void onItemClick(final int id, final int position, boolean status, int leaveId,String m_Id) {
+        if (status){
             dialog.show();
-            Toast.makeText(this, "Status True", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Status True", Toast.LENGTH_SHORT).show();
             final Employee[] employee = {new Employee()};
             String startDate = LeavesArrayList.get(position).getStartDate();
             String endDate = LeavesArrayList.get(position).getEndDate();
-            final int diff= Integer.parseInt(getCountOfDays(startDate,endDate));
-            database.getReference().child("Users").addValueEventListener(new ValueEventListener() {
+            final int diff= getCountOfDays(startDate,endDate);
+            final int[] finalCurrentChunks = {0};
+            final int[] finalCurrentDays = {0};
+            //TODO Please Calculate Difference between two dates , acc. to that subtract chunks and leaves as like below code
+            final int days = 2;
+            database.getReference().child("Employee Details").child("Users").child(m_Id).child("EID"+id).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                        for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
-                            if (dataSnapshot2.hasChild("EID" + id)) {
-                                employee[0] = dataSnapshot2.child("EID" + id).getValue(Employee.class);
-                                if (employee[0].getNo_of_leaves() >= diff && employee[0].getNo_of_chunks() != 0) {
-                                    int currentChunks = employee[0].getNo_of_chunks();
-                                    int currentDays = employee[0].getNo_of_leaves();
-                                    if (diff == 1) {
-                                        if(dataSnapshot2.child("EID"+id).child("leaveType").getValue(String.class).equals("Full")) {
-                                            currentChunks = currentChunks - 1;
-                                            currentDays = (int) (currentDays - 1);
-                                        }
-                                    } else if (diff < 1) {
-                                        if (dataSnapshot2.child("EID" + id).child("leaveType").getValue(String.class).equals("Quarter")) {
-                                            currentChunks = currentChunks - 1;
-                                            currentDays = (int) (currentDays - 0.25);
-                                        } else {
-                                            currentChunks = currentChunks - 1;
-                                            currentDays = (int) (currentDays - 0.5);
-                                        }
-                                    }
-                                    currentChunks = currentChunks - 1;
-                                    currentDays = currentDays - diff;
-                                    final int finalCurrentChunks = currentChunks;
-                                    final int finalCurrentDays = currentDays;
-                                }
-                            }
+
+                    if (dataSnapshot.hasChild("e_ID")) {
+                        employee[0] = dataSnapshot.getValue(Employee.class);
+                        if (employee[0].getNo_of_leaves() >= diff && employee[0].getNo_of_chunks() != 0) {
+                            int currentChunks = employee[0].getNo_of_chunks();
+                            int currentDays = employee[0].getNo_of_leaves();
                         }
                     }
                 }
@@ -175,8 +161,8 @@ public class RecyclerViewManager extends AppCompatActivity implements OnItemClic
             getEmployeeDetails();
         }
     }
-    public String getCountOfDays(String createdDateString, String expireDateString) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+    public int getCountOfDays(String createdDateString, String expireDateString) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
 
         Date createdConvertedDate = null;
         Date expireCovertedDate =null;
@@ -226,6 +212,6 @@ public class RecyclerViewManager extends AppCompatActivity implements OnItemClic
 
         float dayCount = (float) diff / (24 * 60 * 60 * 1000);
 
-        return ("" + (int) dayCount + " Days");
+        return (int) dayCount;
     }
 }

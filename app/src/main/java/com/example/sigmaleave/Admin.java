@@ -36,11 +36,10 @@ public class Admin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
-        inputEmail=findViewById(R.id.em);
-        inputPassword=findViewById(R.id.p);
-        btnLogin=findViewById(R.id.Login);
+        inputEmail=findViewById(R.id.inputEmail);
+        inputPassword=findViewById(R.id.inputPassword);
+        btnLogin=findViewById(R.id.btnLogin);
         mAuth = FirebaseAuth.getInstance();
-        progressBar=findViewById(R.id.progressBarlogin);
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference().child("Admin");
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -71,9 +70,9 @@ public class Admin extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                progressBar.setVisibility(View.VISIBLE);
+               // progressBar.setVisibility(View.VISIBLE);
                 if ((inputEmail.getText().toString().trim().equals(email)) && (inputPassword.getText().toString().trim().equals(password))){
-                    progressBar.setVisibility(View.GONE);
+                   // progressBar.setVisibility(View.GONE);
                     startActivity(new Intent(Admin.this,AdminHomePage.class));}
                 else
                 {

@@ -6,19 +6,53 @@ public class Leaves {
     Integer leaveId;
     String startDate;
     String endDate;
-    String ManagerApproved;
-    String AdminApproval;
+    boolean ManagerApproved;
+    boolean AdminApproval;
+    String m_ID;
+    int no_of_leaves;
+    int no_of_chunks;
 
-    public String isAdminApproval() {
-        return AdminApproval;
+    public int getNo_of_leaves() {
+        return no_of_leaves;
     }
 
-    public void setAdminApproval(String adminApproval) {
-        AdminApproval = adminApproval;
+    public void setNo_of_leaves(int no_of_leaves) {
+        this.no_of_leaves = no_of_leaves;
     }
+
+    public int getNo_of_chunks() {
+        return no_of_chunks;
+    }
+
+    public void setNo_of_chunks(int no_of_chunks) {
+        this.no_of_chunks = no_of_chunks;
+    }
+
 
     Integer empId;
     String LeaveType;
+
+    public String getM_ID() {
+        return m_ID;
+    }
+
+    public void setM_ID(String m_ID) {
+        this.m_ID = m_ID;
+    }
+
+    public Leaves(String reason, Integer leaveId, String startDate, String endDate, boolean managerApproved, boolean adminApproval, String m_ID, Integer empId, String leaveType, int No_of_chunks,int No_of_leaves) {
+        this.reason = reason;
+        this.leaveId = leaveId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        ManagerApproved = managerApproved;
+        AdminApproval = adminApproval;
+        this.m_ID = m_ID;
+        this.empId = empId;
+        LeaveType = leaveType;
+        no_of_chunks=No_of_chunks;
+        no_of_leaves=No_of_leaves;
+    }
 
     public String getReason() {
         return reason;
@@ -28,31 +62,12 @@ public class Leaves {
         this.reason = reason;
     }
 
-    public Leaves(String reason, Integer leaveId, String startDate, String endDate, String managerApproved, String adminApproval, int empId, String leaveType) {
-        this.reason = reason;
-        this.leaveId = leaveId;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        ManagerApproved = managerApproved;
-        AdminApproval = adminApproval;
-        this.empId = empId;
-        LeaveType = leaveType;
-    }
-
     public Integer getLeaveId() {
         return leaveId;
     }
 
     public void setLeaveId(Integer leaveId) {
         this.leaveId = leaveId;
-    }
-
-    public CharSequence isManagerApproved() {
-        return ManagerApproved;
-    }
-
-    public void setManagerApproved(String managerApproved) {
-        ManagerApproved = managerApproved;
     }
 
     public String getStartDate() {
@@ -71,12 +86,24 @@ public class Leaves {
         this.endDate = endDate;
     }
 
-    public String isStatus() {
+    public boolean isManagerApproved() {
         return ManagerApproved;
     }
 
-    public void setStatus(String status) {
-        this.ManagerApproved = status;
+    public void setManagerApproved(boolean managerApproved) {
+        ManagerApproved = managerApproved;
+    }
+
+    public boolean isAdminApproval() {
+        return AdminApproval;
+    }
+
+    public Leaves() {
+
+    }
+
+    public void setAdminApproval(boolean adminApproval) {
+        AdminApproval = adminApproval;
     }
 
     public Integer getEmpId() {
@@ -87,9 +114,6 @@ public class Leaves {
         this.empId = empId;
     }
 
-    public Leaves() {
-    }
-
     public String getLeaveType() {
         return LeaveType;
     }
@@ -97,5 +121,4 @@ public class Leaves {
     public void setLeaveType(String leaveType) {
         LeaveType = leaveType;
     }
-
 }

@@ -1,6 +1,7 @@
 package com.example.sigmaleave;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +13,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    private Button b1, b2;
+    private CardView b1, b2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

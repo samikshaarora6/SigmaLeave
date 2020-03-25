@@ -1,25 +1,19 @@
 package com.example.sigmaleave;
 
-
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 
 public class AppliedLeavesViewer extends AppCompatActivity implements OnItemClickListener {
@@ -37,7 +31,6 @@ public class AppliedLeavesViewer extends AppCompatActivity implements OnItemClic
     private static final String LeaveId = "LeaveNumber";
     int finalCurrentChunks = 0;
     int finalCurrentDays = 0;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +52,6 @@ public class AppliedLeavesViewer extends AppCompatActivity implements OnItemClic
         adapter = new LeavesAdapter(LeavesArrayList, AppliedLeavesViewer.this, this);
         recyclerView.setAdapter(adapter);
     }
-
     public void getEmployeeDetails() {
         dialog.show();
         employeeArrayList = new ArrayList<>();
@@ -67,17 +59,14 @@ public class AppliedLeavesViewer extends AppCompatActivity implements OnItemClic
         database.getReference().child("Leave Requests").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
-                        if (dataSnapshot2.hasChild("status")) {
-                            if (!dataSnapshot2.child("status").getValue(Boolean.class)) {
-                                if (dataSnapshot2.hasChild("startDate")) {
-                                    Leaves leaves = dataSnapshot2.getValue(Leaves.class);
-                                    Employee employee = dataSnapshot2.getValue(Employee.class);
+                        if (dataSnapshot1.hasChild("adminApproval")) {
+                            if (dataSnapshot1.child("adminApproval").getValue(Boolean.class).equals(true)) {
+                                if (dataSnapshot1.hasChild("startDate")) {
+                                    Leaves leaves = dataSnapshot1.getValue(Leaves.class);
+                                    Employee employee = dataSnapshot1.getValue(Employee.class);
                                     employeeArrayList.add(employee);
                                     LeavesArrayList.add(leaves);
-                                }
                             }
                         }
                     }
@@ -91,9 +80,7 @@ public class AppliedLeavesViewer extends AppCompatActivity implements OnItemClic
             }
         });
     }
-
     @Override
-    public void onItemClick(int id, int position, boolean status, int leaveId) {
-
+    public void onItemClick(int id, int position, boolean status, int leaveId, String M_Id) {
     }
 }

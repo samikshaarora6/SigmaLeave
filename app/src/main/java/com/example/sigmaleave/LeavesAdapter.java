@@ -41,13 +41,13 @@ public class LeavesAdapter extends RecyclerView.Adapter<LeavesAdapter.ContactVie
         contactViewHolder.yess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onItemClickListener.onItemClick(contactList.get(position).getEmpId(), position, true,contactList.get(position).getLeaveId());
+                onItemClickListener.onItemClick(contactList.get(position).getEmpId(), position, true,contactList.get(position).getLeaveId(),contactList.get(position).getM_ID());
             }
         });
         contactViewHolder.No.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onItemClickListener.onItemClick(contactList.get(position).getEmpId(), position, false,contactList.get(position).getLeaveId());
+                onItemClickListener.onItemClick(contactList.get(position).getEmpId(), position, false,contactList.get(position).getLeaveId(),contactList.get(position).getM_ID());
             }
         });
 

@@ -10,13 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
-
 public class AppliedLeavesAdapter extends RecyclerView.Adapter<AppliedLeavesAdapter.ContactViewHolder> {
 
     private ArrayList<Leaves> contactList;
     private Context mContext;
     OnItemClickListener onItemClickListener;
-   // SharedPreferences sharedPreferences;
+    SharedPreferences sharedPreferences;
 
 
     public AppliedLeavesAdapter(ArrayList<Leaves> contactList, Context mContext, OnItemClickListener onItemClickListener) {
@@ -32,17 +31,14 @@ public class AppliedLeavesAdapter extends RecyclerView.Adapter<AppliedLeavesAdap
         View view = layoutInflater.inflate(R.layout.leavesemployees, viewGroup, false);
         return new ContactViewHolder(view);
     }
-
     @Override
     public void onBindViewHolder(ContactViewHolder contactViewHolder, final int position) {
-        contactViewHolder.managerApproved.setText(contactList.get(position).isManagerApproved());
+        contactViewHolder.managerApproved.setText(""+contactList.get(position).isManagerApproved());
     }
-
     @Override
     public int getItemCount() {
         return contactList.size();
     }
-
     public static class ContactViewHolder extends RecyclerView.ViewHolder {
         TextView managerApproved;
 

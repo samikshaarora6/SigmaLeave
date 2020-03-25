@@ -133,6 +133,7 @@ public class Add extends AppCompatActivity {
                                     employee.setNo_of_chunks(30);
                                     employee.setNo_of_leaves(15);
                                     employee.setE_ID(currentEMPID);
+
                                     employee.setBloodGroup(bloodGroup.getText().toString().trim());
                                     employee.setDOB(date.getText().toString().trim());
                                     //employee.setManagerName(manag.getText().toString().trim());
@@ -216,7 +217,7 @@ public class Add extends AppCompatActivity {
                                             database.getReference().child("CurrentMID").setValue(currentMID);
                                             editor.putInt(Constant.Running_M_ID, currentMID);
                                             editor.apply();
-                                            Toast.makeText(Add.this, "Manager Added Successfully ", Toast.LENGTH_SHORT);
+                                            Toast.makeText(Add.this, "Manager Added Successfully "+FIRST_MID+" "+currentMID, Toast.LENGTH_SHORT).show();
                                         }
                                     });
 
@@ -241,7 +242,8 @@ public class Add extends AppCompatActivity {
                                             database.getReference().child("CurrentMID").setValue(currentMID);
                                             editor.putInt(Constant.Running_M_ID, currentMID);
                                             editor.apply();
-                                            Toast.makeText(Add.this, " Manager Added Successfully ", Toast.LENGTH_SHORT);
+                                            Toast.makeText(Add.this, " Manager Added Successfully " +FIRST_MID+" "+currentMID
+                                                    , Toast.LENGTH_SHORT).show();
                                         }
                                     });
                                 }
@@ -258,6 +260,7 @@ public class Add extends AppCompatActivity {
     private void selectManagerName(){
         switch (radioMgrGroup.getCheckedRadioButtonId()){
             case R.id.MID0:
+                employee.setM_ID("MID0");
                 databaseReference.child("Users").child("MID0").child(FIRST_EMPID + currentEMPID).setValue(employee).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @SuppressLint("ShowToast")
                     @Override
@@ -267,11 +270,12 @@ public class Add extends AppCompatActivity {
                         database.getReference().child("CurrentEMPID").setValue(currentEMPID);
                         editor.putInt(Constant.Running_EMP_ID, currentEMPID);
                         editor.apply();
-                        Toast.makeText(Add.this, " Employee Added Successfully ", Toast.LENGTH_SHORT);
+                        Toast.makeText(Add.this, " Employee Added Successfully "+FIRST_EMPID+" "+currentEMPID, Toast.LENGTH_SHORT).show();
                     }
                 });
                 break;
             case R.id.MID1:
+                employee.setM_ID("MID1");
                 databaseReference.child("Users").child("MID1").child(FIRST_EMPID + currentEMPID).setValue(employee).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @SuppressLint("ShowToast")
                     @Override
@@ -281,11 +285,12 @@ public class Add extends AppCompatActivity {
                         database.getReference().child("CurrentEMPID").setValue(currentEMPID);
                         editor.putInt(Constant.Running_EMP_ID, currentEMPID);
                         editor.apply();
-                        Toast.makeText(Add.this, " Employee Added Successfully ", Toast.LENGTH_SHORT);
+                        Toast.makeText(Add.this, " Employee Added Successfully "+FIRST_EMPID+" "+currentEMPID, Toast.LENGTH_SHORT).show();
                     }
                 });
                 break;
             case R.id.MID2:
+                employee.setM_ID("MID2");
                 databaseReference.child("Users").child("MID2").child(FIRST_EMPID + currentEMPID).setValue(employee).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @SuppressLint("ShowToast")
                     @Override
@@ -295,11 +300,12 @@ public class Add extends AppCompatActivity {
                         database.getReference().child("CurrentEMPID").setValue(currentEMPID);
                         editor.putInt(Constant.Running_EMP_ID, currentEMPID);
                         editor.apply();
-                        Toast.makeText(Add.this, " Employee Added Successfully ", Toast.LENGTH_SHORT);
+                        Toast.makeText(Add.this, " Employee Added Successfully "+FIRST_EMPID+" "+currentEMPID, Toast.LENGTH_SHORT).show();
                     }
                 });
                 break;
             case R.id.MID3:
+                employee.setM_ID("MID3");
                 databaseReference.child("Users").child("MID3").child(FIRST_EMPID + currentEMPID).setValue(employee).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @SuppressLint("ShowToast")
                     @Override
@@ -309,12 +315,13 @@ public class Add extends AppCompatActivity {
                         database.getReference().child("CurrentEMPID").setValue(currentEMPID);
                         editor.putInt(Constant.Running_EMP_ID, currentEMPID);
                         editor.apply();
-                        Toast.makeText(Add.this, " Employee Added Successfully ", Toast.LENGTH_SHORT);
+                        Toast.makeText(Add.this, " Employee Added Successfully "+FIRST_EMPID+" "+currentEMPID, Toast.LENGTH_SHORT).show();
                     }
                 });
 
                 break;
             case R.id.MID4:
+                employee.setM_ID("MID4");
                 databaseReference.child("Users").child("MID4").child(FIRST_EMPID + currentEMPID).setValue(employee).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @SuppressLint("ShowToast")
                     @Override
@@ -324,11 +331,12 @@ public class Add extends AppCompatActivity {
                         database.getReference().child("CurrentEMPID").setValue(currentEMPID);
                         editor.putInt(Constant.Running_EMP_ID, currentEMPID);
                         editor.apply();
-                        Toast.makeText(Add.this, " Employee Added Successfully ", Toast.LENGTH_SHORT);
+                        Toast.makeText(Add.this, " Employee Added Successfully "+FIRST_EMPID+" "+currentEMPID, Toast.LENGTH_SHORT).show();
                     }
                 });
                 break;
             case R.id.MID5:
+                employee.setM_ID("MID5");
                 databaseReference.child("Users").child("MID5").child(FIRST_EMPID + currentEMPID).setValue(employee).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @SuppressLint("ShowToast")
                     @Override
@@ -338,11 +346,13 @@ public class Add extends AppCompatActivity {
                         database.getReference().child("CurrentEMPID").setValue(currentEMPID);
                         editor.putInt(Constant.Running_EMP_ID, currentEMPID);
                         editor.apply();
-                        Toast.makeText(Add.this, " Employee Added Successfully ", Toast.LENGTH_SHORT);
+                        Toast.makeText(Add.this, " Employee Added Successfully "+FIRST_EMPID+" "+currentEMPID, Toast.LENGTH_SHORT).show();
                     }
                 });
                 break;
             case R.id.MID6:
+                employee.setM_ID("MID6");
+
                 databaseReference.child("Users").child("MID6").child(FIRST_EMPID + currentEMPID).setValue(employee).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @SuppressLint("ShowToast")
                     @Override
@@ -352,11 +362,12 @@ public class Add extends AppCompatActivity {
                         database.getReference().child("CurrentEMPID").setValue(currentEMPID);
                         editor.putInt(Constant.Running_EMP_ID, currentEMPID);
                         editor.apply();
-                        Toast.makeText(Add.this, " Employee Added Successfully ", Toast.LENGTH_SHORT);
+                        Toast.makeText(Add.this, " Employee Added Successfully "+FIRST_EMPID+" "+currentEMPID, Toast.LENGTH_SHORT).show();
                     }
                 });
                 break;
             case R.id.MID7:
+                employee.setM_ID("MID7");
                 databaseReference.child("Users").child("MID7").child(FIRST_EMPID + currentEMPID).setValue(employee).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @SuppressLint("ShowToast")
                     @Override
@@ -366,11 +377,12 @@ public class Add extends AppCompatActivity {
                         database.getReference().child("CurrentEMPID").setValue(currentEMPID);
                         editor.putInt(Constant.Running_EMP_ID, currentEMPID);
                         editor.apply();
-                        Toast.makeText(Add.this, " Employee Added Successfully ", Toast.LENGTH_SHORT);
+                        Toast.makeText(Add.this, " Employee Added Successfully "+FIRST_EMPID+" "+currentEMPID, Toast.LENGTH_SHORT).show();
                     }
                 });
                 break;
             case R.id.MID8:
+                employee.setM_ID("MID8");
                 databaseReference.child("Users").child("MID8").child(FIRST_EMPID + currentEMPID).setValue(employee).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @SuppressLint("ShowToast")
                     @Override
@@ -380,7 +392,7 @@ public class Add extends AppCompatActivity {
                         database.getReference().child("CurrentEMPID").setValue(currentEMPID);
                         editor.putInt(Constant.Running_EMP_ID, currentEMPID);
                         editor.apply();
-                        Toast.makeText(Add.this, " Employee Added Successfully ", Toast.LENGTH_SHORT);
+                        Toast.makeText(Add.this, " Employee Added Successfully "+FIRST_EMPID+" "+currentEMPID, Toast.LENGTH_SHORT).show();
                     }
                 });
                 break;

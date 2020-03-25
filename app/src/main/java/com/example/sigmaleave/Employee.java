@@ -11,6 +11,7 @@ public class Employee {
     String Maritial_Status;
     String MobileNumber;
     String ManagerName;
+    String m_ID;
 
     public String getBloodGroup() {
         return BloodGroup;
@@ -20,16 +21,29 @@ public class Employee {
         BloodGroup = bloodGroup;
     }
     String BloodGroup;
-    public Employee(String name, String email, String password,
-                    String DOB, String maritial_Status, String mobileNumber, String managerName, String bloodGroup) {
+
+    public Employee(String name, String email, String password, int no_of_leaves, int no_of_chunks, int e_ID, String DOB, String maritial_Status,
+                    String mobileNumber, String managerName, String m_ID, String bloodGroup) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.no_of_leaves = no_of_leaves;
+        this.no_of_chunks = no_of_chunks;
+        E_ID = e_ID;
         this.DOB = DOB;
         Maritial_Status = maritial_Status;
         MobileNumber = mobileNumber;
         ManagerName = managerName;
-        BloodGroup=bloodGroup;
+        this.m_ID = m_ID;
+        BloodGroup = bloodGroup;
+    }
+
+    public String getM_ID() {
+        return m_ID;
+    }
+
+    public void setM_ID(String m_ID) {
+        this.m_ID = m_ID;
     }
 
     public String getDOB() {

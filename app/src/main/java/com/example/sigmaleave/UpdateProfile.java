@@ -86,7 +86,7 @@ public class UpdateProfile extends AppCompatActivity {
                 final String cEmail=cmail.getText().toString().trim();
                 final String Cpassword = cp.getText().toString().trim();
                 final String Npassword = np.getText().toString().trim();
-                final DatabaseReference usersdRef = databaseReference.child("Users");
+                final DatabaseReference usersdRef = databaseReference.child("Employee Details").child("Users");
                 ValueEventListener eventListener = new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -96,7 +96,6 @@ public class UpdateProfile extends AppCompatActivity {
                             if (email.equals(cEmail) && password.equals(Cpassword)) {
                                 editor.putInt(Constant.Current_EMP_ID, ds.child("e_ID").getValue(Integer.class));
                                 editor.apply();
-
                                 usersdRef.child(ds.getKey()).child("email").setValue(Email);
                                 usersdRef.child(ds.getKey()).child("password").setValue(Npassword);
                                 usersdRef.child(ds.getKey()).child("name").setValue(Name);
