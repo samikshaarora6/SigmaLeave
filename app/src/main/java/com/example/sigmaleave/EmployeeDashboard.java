@@ -21,6 +21,7 @@ public class EmployeeDashboard extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(EmployeeDashboard.this,AppliedLeavesViewer.class);
                 startActivity(intent);
+                finish();
             }
         });
         btn2.setOnClickListener(new View.OnClickListener() {
@@ -28,6 +29,7 @@ public class EmployeeDashboard extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(EmployeeDashboard.this,ApplyForLeave.class);
                 startActivity(intent);
+                finish();
             }
         });
 

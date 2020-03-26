@@ -1,6 +1,7 @@
 package com.example.sigmaleave;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -31,7 +32,6 @@ public class AppliedLeavesViewer extends AppCompatActivity implements OnItemClic
     private static final String LeaveId = "LeaveNumber";
     int finalCurrentChunks = 0;
     int finalCurrentDays = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,18 +56,24 @@ public class AppliedLeavesViewer extends AppCompatActivity implements OnItemClic
         dialog.show();
         employeeArrayList = new ArrayList<>();
         LeavesArrayList = new ArrayList<>();
-        database.getReference().child("Leave Requests").addValueEventListener(new ValueEventListener() {
+        SharedPreferences sharedPreferences = getSharedPreferences("myKey", MODE_PRIVATE);
+        String value = sharedPreferences.getString("EID","");
+
+        database.getReference().child("Leave Requests").child(value).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                        if (dataSnapshot1.hasChild("adminApproval")) {
-                            if (dataSnapshot1.child("adminApproval").getValue(Boolean.class).equals(true)) {
-                                if (dataSnapshot1.hasChild("startDate")) {
-                                    Leaves leaves = dataSnapshot1.getValue(Leaves.class);
-                                    Employee employee = dataSnapshot1.getValue(Employee.class);
-                                    employeeArrayList.add(employee);
-                                    LeavesArrayList.add(leaves);
-                            }
+                    for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
+                        if (dataSnapshot2.hasChild("adminApproval")) {
+                            //       boolean val= dataSnapshot1.child("adminApproval").getValue(Boolean.class);
+                            Leaves leaves = dataSnapshot2.getValue(Leaves.class);
+                            LeavesArrayList.add(leaves);
+                            //     t1.setText(""+val);
+                        } else {
+                            //  boolean val= dataSnapshot1.child("adminApproval").getValue(Boolean.class);
+                            Leaves leaves = dataSnapshot1.getValue(Leaves.class);
+                            LeavesArrayList.add(leaves);
+                            // t1.setText(""+val);
                         }
                     }
                 }

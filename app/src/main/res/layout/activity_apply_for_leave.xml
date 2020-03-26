@@ -138,15 +138,21 @@
             android:id="@+id/cancelButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/round"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
             android:layout_marginTop="20dp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/round"
             android:text="Cancel" />
 
     <Button
         android:id="@+id/apply"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginTop="20dp"
+        android:textColor="#FFFFFF"
         android:background="@drawable/round"
         android:text="Apply" />
     </LinearLayout>

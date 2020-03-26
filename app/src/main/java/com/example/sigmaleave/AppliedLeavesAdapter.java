@@ -33,7 +33,7 @@ public class AppliedLeavesAdapter extends RecyclerView.Adapter<AppliedLeavesAdap
     }
     @Override
     public void onBindViewHolder(ContactViewHolder contactViewHolder, final int position) {
-        contactViewHolder.managerApproved.setText(""+contactList.get(position).isManagerApproved());
+        contactViewHolder.managerApproved.setText(""+contactList.get(position).isAdminApproval());
     }
     @Override
     public int getItemCount() {

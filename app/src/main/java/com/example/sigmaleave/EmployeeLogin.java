@@ -56,7 +56,7 @@ public class EmployeeLogin extends AppCompatActivity {
             public void onClick(View v) {
                 final String Email = inputEmail.getText().toString();
                 final String Password = inputPassword.getText().toString();
-                String eID=inputEID.getText().toString();
+
                 if (TextUtils.isEmpty((Email))) {
                     Toast.makeText(getApplicationContext(), "Enter Email Address!", Toast.LENGTH_SHORT).show();
                     return;
@@ -107,6 +107,10 @@ public class EmployeeLogin extends AppCompatActivity {
                                         editor.putString(Constant.Current_Employee_M_ID, ds.child("m_ID").getValue(String.class));
                                         editor.putInt(Constant.Current_EMP_ID, ds.child("e_ID").getValue(Integer.class));
                                         editor.putString(Constant.USER_TYPE, "Employees");
+                                        editor.apply();
+                                        String eID=inputEID.getText().toString();
+                                        sharedPreferences = getSharedPreferences("myKey", MODE_PRIVATE);
+                                        editor.putString("EID", eID);
                                         editor.apply();
                                         Toast.makeText(EmployeeLogin.this, "Welcome ! ", Toast.LENGTH_SHORT).show();
                                         Intent it = new Intent(EmployeeLogin.this, EmployeeDashboard.class);

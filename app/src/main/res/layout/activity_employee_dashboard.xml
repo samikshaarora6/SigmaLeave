@@ -42,19 +42,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="APPLY LEAVE"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="20dp"
+        android:textColor="#FFFFFF"
         android:background="@drawable/round"
         android:id="@+id/apply"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="HISTORY"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="20dp"
+        android:textColor="#FFFFFF"
         android:background="@drawable/round"
         android:id="@+id/history"/>
     <Button
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="20dp"
+        android:textColor="#FFFFFF"
         android:background="@drawable/round"
         android:text="PROFILE"
         android:id="@+id/PROF"/>

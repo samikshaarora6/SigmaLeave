@@ -38,17 +38,32 @@ tools:context=".MainActivity"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_marginStart="32dp"
+        android:textSize="20sp"
+        android:textColor="#000000"
+        android:text="If you are working under a manager then, \nadd your manager ID preceded with MID. \nIt is mandatory to add your ID. \neg- EID or MID."/>
 
     <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/outlinedTextField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="ID"
+            android:textAllCaps="true"
             android:padding="16dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
@@ -58,7 +73,6 @@ tools:context=".MainActivity"
             android:textAppearance="@style/TextAppearance.AppCompat.Display3"
             android:textSize="24sp"
             android:id="@+id/EID"
-            android:gravity="center"
             android:visibility="visible"
             app:fontFamily="sans-serif-light" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -78,7 +92,6 @@ tools:context=".MainActivity"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display3"
                 android:textSize="24sp"
                 android:id="@+id/em"
-                android:gravity="center"
                 android:visibility="visible"
                 app:fontFamily="sans-serif-light" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -98,7 +111,6 @@ tools:context=".MainActivity"
                 android:layout_marginTop="20dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display3"
                 android:textSize="24sp"
-                android:gravity="center"
                 android:visibility="visible"
                 app:fontFamily="sans-serif-light" />
 
@@ -111,6 +123,7 @@ tools:context=".MainActivity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Manager ID"
+                android:textAllCaps="true"
                 android:padding="16dp"
                 android:id="@+id/manager"
                 android:layout_marginStart="32dp"
@@ -120,7 +133,6 @@ tools:context=".MainActivity"
                 android:layout_marginTop="20dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display3"
                 android:textSize="24sp"
-                android:gravity="center"
                 android:visibility="visible"
                 app:fontFamily="sans-serif-light" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -129,6 +141,7 @@ tools:context=".MainActivity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:buttonTint="@color/colorPrimary"
             android:layout_gravity="center"
             android:text="Manager" />
 
@@ -143,5 +156,7 @@ tools:context=".MainActivity"
             android:background="@drawable/round"
             android:id="@+id/Login"
             android:gravity="center"/>
+    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
     </LinearLayout>

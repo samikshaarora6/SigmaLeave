@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -179,6 +180,8 @@ public class ApplyForLeave extends AppCompatActivity {
                 database.getReference().child("Users").child(sharedPreferences.getString(Constant.USER_TYPE, "Employees")).child(FIRST_EMPID + currentEMPID).child("no_of_leaves").setValue(employee.getNo_of_leaves());
                 Leave_NO++;
                 database.getReference().child("Users").child(sharedPreferences.getString(Constant.USER_TYPE, "Employees")).child(FIRST_EMPID + currentEMPID).child(LeaveId).setValue(Leave_NO);
+                Toast.makeText(ApplyForLeave.this, " Leave Applied ! "
+                        , Toast.LENGTH_LONG).show();
             }
         });
     }
